@@ -1,7 +1,10 @@
 package com.JGR.HeartRateMonitor;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -46,6 +49,8 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static final int averageArraySize = 4;
     private static final int[] averageArray = new int[averageArraySize];
 
+    private static final int MY_CAMERA_REQUEST_CODE = 100;
+
     public static enum TYPE {
         GREEN, RED
     };
@@ -65,6 +70,7 @@ public class HeartRateMonitor extends AppCompatActivity {
     /**
      * {@inheritDoc}
      */
+    @SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         System.out.println("test");
@@ -81,7 +87,7 @@ public class HeartRateMonitor extends AppCompatActivity {
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "HeartRateMonitor:WakeLock");
-        
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -91,6 +97,10 @@ public class HeartRateMonitor extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+        }
     }
 
     /**
