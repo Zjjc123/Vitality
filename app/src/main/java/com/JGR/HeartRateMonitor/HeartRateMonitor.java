@@ -169,7 +169,7 @@ public class HeartRateMonitor extends AppCompatActivity {
             }
             else {
                 fingerOn = true;
-                text.setText("Scanning...");
+                // text.setText("Scanning...");
 //                if (imgAvg == 0 || imgAvg == 255) {
 //                    processing.set(false);
 //                    return;
