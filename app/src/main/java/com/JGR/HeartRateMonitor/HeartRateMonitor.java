@@ -68,6 +68,8 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static long startTime = 0;
     private static boolean fingerOn = false;
 
+    private static int updateTime = 5;
+
     /**
      * {@inheritDoc}
      */
@@ -160,6 +162,7 @@ public class HeartRateMonitor extends AppCompatActivity {
 
             int imgAvg = ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
             // Log.i(TAG, "imgAvg="+imgAvg);
+            //System.out.println("imgAvg=" + imgAvg);
             if (imgAvg < 200)
             {
                 fingerOn = false;
@@ -207,7 +210,7 @@ public class HeartRateMonitor extends AppCompatActivity {
 
                 long endTime = System.currentTimeMillis();
                 double totalTimeInSecs = (endTime - startTime) / 1000d;
-                if (totalTimeInSecs >= 10) {
+                if (totalTimeInSecs >= updateTime) {
                     double bps = (beats / totalTimeInSecs);
                     int dpm = (int) (bps * 60d);
                     if (dpm < 30 || dpm > 180) {
