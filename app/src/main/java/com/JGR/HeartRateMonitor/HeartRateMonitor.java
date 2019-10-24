@@ -75,6 +75,7 @@ public class HeartRateMonitor extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         System.out.println("test");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         preview = findViewById(R.id.preview);
