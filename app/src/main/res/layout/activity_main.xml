@@ -35,29 +35,32 @@
 
     <SurfaceView
         android:id="@+id/preview"
-        android:layout_width="296dp"
-        android:layout_height="269dp"
+        android:layout_width="228dp"
+        android:layout_height="193dp"
         android:layout_marginBottom="81dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/nav_host_fragment"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/nav_host_fragment" />
 
+
     <com.JGR.HeartRateMonitor.HeartRateView
         android:id="@+id/image"
-        android:layout_width="293dp"
-        android:layout_height="215dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="74dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="268dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toStartOf="@+id/nav_host_fragment"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toEndOf="@+id/nav_host_fragment"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/red_icon" />
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="283dp"
-        android:layout_height="72dp"
+        android:layout_width="290dp"
+        android:layout_height="178dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Scanning..."
