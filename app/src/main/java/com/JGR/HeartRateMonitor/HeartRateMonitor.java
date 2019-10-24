@@ -66,9 +66,12 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static final int[] beatsArray = new int[beatsArraySize];
     private static double beats = 0;
     private static long startTime = 0;
-    private static boolean fingerOn = false;
 
+
+
+    private static boolean fingerOn = false;
     private static int updateTime = 5;
+    private static boolean initialScan = false;
 
     /**
      * {@inheritDoc}
@@ -166,17 +169,21 @@ public class HeartRateMonitor extends AppCompatActivity {
             if (imgAvg < 200)
             {
                 fingerOn = false;
+                initialScan = false;
+
                 text.setText("Place finger on camera!");
+
                 processing.set(false);
                 return;
             }
             else {
                 fingerOn = true;
-                // text.setText("Scanning...");
-//                if (imgAvg == 0 || imgAvg == 255) {
-//                    processing.set(false);
-//                    return;
-//                }
+
+                if (!initialScan)
+                {
+                    text.setText("Scanning...");
+                }
+
                 int averageArrayAvg = 0;
                 int averageArrayCnt = 0;
                 for (int i = 0; i < averageArray.length; i++) {
@@ -211,6 +218,8 @@ public class HeartRateMonitor extends AppCompatActivity {
                 long endTime = System.currentTimeMillis();
                 double totalTimeInSecs = (endTime - startTime) / 1000d;
                 if (totalTimeInSecs >= updateTime) {
+                    if (!initialScan)
+                        initialScan = true;
                     double bps = (beats / totalTimeInSecs);
                     int dpm = (int) (bps * 60d);
                     if (dpm < 30 || dpm > 180) {
