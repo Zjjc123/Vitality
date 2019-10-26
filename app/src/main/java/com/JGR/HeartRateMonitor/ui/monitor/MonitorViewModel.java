@@ -1,16 +1,16 @@
-package com.JGR.HeartRateMonitor.ui.home;
+package com.JGR.HeartRateMonitor.ui.monitor;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class MonitorViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public MonitorViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is the monitor fragment");
     }
 
     public LiveData<String> getText() {

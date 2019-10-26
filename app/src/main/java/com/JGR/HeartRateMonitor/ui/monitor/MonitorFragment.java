@@ -1,10 +1,10 @@
-package com.JGR.HeartRateMonitor;
+package com.JGR.HeartRateMonitor.ui.monitor;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
@@ -12,18 +12,28 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.JGR.HeartRateMonitor.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static com.JGR.HeartRateMonitor.ImageProcessing.decodeYUV420SPtoRedAvg;
 
 
 /**
@@ -32,7 +42,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  *
  * @author Justin Wetherell <phishman3579@gmail.com>
  */
-public class HeartRateMonitor extends AppCompatActivity {
+public class MonitorFragment extends Fragment {
 
     private static final String TAG = "HeartRateMonitor";
     private static final AtomicBoolean processing = new AtomicBoolean(false);
@@ -43,21 +53,17 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static View image = null;
     private static TextView text = null;
 
-    private static WakeLock wakeLock = null;
-
     private static int averageIndex = 0;
     private static final int averageArraySize = 4;
     private static final int[] averageArray = new int[averageArraySize];
 
-    private static final int MY_CAMERA_REQUEST_CODE = 100;
-
-    public static enum TYPE {
+    public enum TYPE {
         GREEN, RED
-    };
+    }
 
-    private static TYPE currentType = TYPE.GREEN;
+    private static com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE currentType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.GREEN;
 
-    public static TYPE getCurrent() {
+    public static com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE getCurrent() {
         return currentType;
     }
 
@@ -68,7 +74,6 @@ public class HeartRateMonitor extends AppCompatActivity {
     private static long startTime = 0;
 
 
-
     private static boolean fingerOn = false;
     private static int updateTime = 5;
     private static boolean initialScan = false;
@@ -77,37 +82,26 @@ public class HeartRateMonitor extends AppCompatActivity {
      * {@inheritDoc}
      */
     @SuppressLint("NewApi")
+    private MonitorViewModel monitorViewModel;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        System.out.println("test");
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        monitorViewModel =
+                ViewModelProviders.of(this).get(MonitorViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_monitor, container, false);
 
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
-        preview = findViewById(R.id.preview);
+        preview = root.findViewById(R.id.preview);
         previewHolder = preview.getHolder();
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        image = findViewById(R.id.image);
-        text = findViewById(R.id.text);
+        image = root.findViewById(R.id.image);
+        text = root.findViewById(R.id.text);
 
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "HeartRateMonitor:WakeLock");
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
-
-        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
-        }
+        return root;
     }
 
     /**
@@ -124,9 +118,6 @@ public class HeartRateMonitor extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        wakeLock.acquire();
-
         camera = Camera.open();
 
         startTime = System.currentTimeMillis();
@@ -139,15 +130,13 @@ public class HeartRateMonitor extends AppCompatActivity {
     public void onPause() {
         super.onPause();
 
-        wakeLock.release();
-
         camera.setPreviewCallback(null);
         camera.stopPreview();
         camera.release();
         camera = null;
     }
 
-    private static PreviewCallback previewCallback = new PreviewCallback() {
+    private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
         /**
          * {@inheritDoc}
@@ -163,11 +152,10 @@ public class HeartRateMonitor extends AppCompatActivity {
             int width = size.width;
             int height = size.height;
 
-            int imgAvg = ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
+            int imgAvg = com.JGR.HeartRateMonitor.ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
             // Log.i(TAG, "imgAvg="+imgAvg);
             //System.out.println("imgAvg=" + imgAvg);
-            if (imgAvg < 200)
-            {
+            if (imgAvg < 200) {
                 fingerOn = false;
                 initialScan = false;
 
@@ -175,12 +163,10 @@ public class HeartRateMonitor extends AppCompatActivity {
 
                 processing.set(false);
                 return;
-            }
-            else {
+            } else {
                 fingerOn = true;
 
-                if (!initialScan)
-                {
+                if (!initialScan) {
                     text.setText("Scanning...");
                 }
 
@@ -194,15 +180,15 @@ public class HeartRateMonitor extends AppCompatActivity {
                 }
 
                 int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
-                TYPE newType = currentType;
+                com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE newType = currentType;
                 if (imgAvg < rollingAverage) {
-                    newType = TYPE.RED;
+                    newType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.RED;
                     if (newType != currentType) {
                         beats++;
                         // Log.d(TAG, "BEAT!! beats="+beats);
                     }
                 } else if (imgAvg > rollingAverage) {
-                    newType = TYPE.GREEN;
+                    newType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.GREEN;
                 }
 
                 if (averageIndex == averageArraySize) averageIndex = 0;
