@@ -18,11 +18,13 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.fragment.app.FragmentTransaction;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -34,6 +36,7 @@ import com.JGR.HeartRateMonitor.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.JGR.HeartRateMonitor.ImageProcessing.decodeYUV420SPtoRedAvg;
+
 
 
 /**
@@ -87,6 +90,7 @@ public class MonitorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        System.out.println("oncreateview");
         monitorViewModel =
                 ViewModelProviders.of(this).get(MonitorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_monitor, container, false);
@@ -119,6 +123,8 @@ public class MonitorFragment extends Fragment {
     public void onResume() {
         super.onResume();
         camera = Camera.open();
+        camera.setDisplayOrientation(90);
+        System.out.println("onResume");
 
         startTime = System.currentTimeMillis();
     }
@@ -129,7 +135,7 @@ public class MonitorFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
+        System.out.println("onPause");
         camera.setPreviewCallback(null);
         camera.stopPreview();
         camera.release();
@@ -143,6 +149,11 @@ public class MonitorFragment extends Fragment {
          */
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
+            try {
+                cam.getParameters();
+            } catch (Exception e){
+                return;
+            }
             if (data == null) throw new NullPointerException();
             Camera.Size size = cam.getParameters().getPreviewSize();
             if (size == null) throw new NullPointerException();
@@ -247,6 +258,12 @@ public class MonitorFragment extends Fragment {
          */
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
+            if (camera == null){
+                camera = Camera.open();
+                camera.setDisplayOrientation(90);
+
+                startTime = System.currentTimeMillis();
+            }
             try {
                 camera.setPreviewDisplay(previewHolder);
                 camera.setPreviewCallback(previewCallback);
@@ -297,5 +314,10 @@ public class MonitorFragment extends Fragment {
         }
 
         return result;
+    }
+
+    private void reload(){
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
     }
 }
