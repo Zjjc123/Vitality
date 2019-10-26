@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +20,6 @@ import androidx.fragment.app.Fragment;
 
 import com.JGR.HeartRateMonitor.R;
 
-
-/**
- * This class extends Activity to handle a picture preview, process the preview
- * for a red values and determine a heart beat.
- *
- * @author Justin Wetherell <phishman3579@gmail.com>
- */
 public class MonitorFragment extends Fragment {
 
     private static final String TAG = "HeartRateMonitor";
@@ -34,8 +28,8 @@ public class MonitorFragment extends Fragment {
     private static SurfaceView preview = null;
     private static SurfaceHolder previewHolder = null;
     private static Camera camera = null;
-    private static View image = null;
     private static TextView text = null;
+    private static ImageView heartImg = null;
 
     private static int averageIndex = 0;
     private static final int averageArraySize = 4;
@@ -59,7 +53,7 @@ public class MonitorFragment extends Fragment {
 
 
     private static boolean fingerOn = false;
-    private static int updateTime = 5;
+    private static int updateTime = 3;
     private static boolean initialScan = false;
 
     /**
@@ -78,8 +72,8 @@ public class MonitorFragment extends Fragment {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        image = root.findViewById(R.id.image);
         text = root.findViewById(R.id.text);
+        heartImg = root.findViewById(R.id.image);
 
         return root;
     }
@@ -197,9 +191,6 @@ public class MonitorFragment extends Fragment {
                     }
                 }
                 int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
-
-                System.out.println("Average: " + rollingAverage);
-
                 // If the new image is less than the rolling average --> BEAT
                 MonitorFragment.TYPE newType = currentType;
                 if (imgAvg < rollingAverage) {
@@ -224,7 +215,6 @@ public class MonitorFragment extends Fragment {
                 // Transitioned from one state to another to the same
                 if (newType != currentType) {
                     currentType = newType;
-                    image.postInvalidate();
                 }
 
                 long endTime = System.currentTimeMillis();
@@ -274,20 +264,17 @@ public class MonitorFragment extends Fragment {
                     startTime = System.currentTimeMillis();
                     beats = 0;
                 }
-            }
+        }
 
-            for (int i = 0; i < averageArray.length; i ++)
+
+            if (MonitorFragment.getCurrent() == MonitorFragment.TYPE.GREEN)
             {
-                System.out.print(averageArray[i] + ", ");
+                heartImg.setImageResource(R.drawable.heart_icon_off);
             }
-            System.out.println();
-
-            for (int i = 0; i < beatsArray.length; i ++)
-            {
-                System.out.print(beatsArray[i] + ", ");
+            else
+                {
+                heartImg.setImageResource(R.drawable.heart_icon_on);
             }
-            System.out.println();
-
 
 
             camera.setParameters(parameters);
