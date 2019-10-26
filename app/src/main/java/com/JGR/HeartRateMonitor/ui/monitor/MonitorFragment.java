@@ -90,7 +90,7 @@ public class MonitorFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        System.out.println("oncreateview");
+        //System.out.println("oncreateview");
         monitorViewModel =
                 ViewModelProviders.of(this).get(MonitorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_monitor, container, false);
@@ -124,7 +124,7 @@ public class MonitorFragment extends Fragment {
         super.onResume();
         camera = Camera.open();
         camera.setDisplayOrientation(90);
-        System.out.println("onResume");
+        //System.out.println("onResume");
 
         startTime = System.currentTimeMillis();
     }
@@ -135,7 +135,7 @@ public class MonitorFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println("onPause");
+        //System.out.println("onPause");
         camera.setPreviewCallback(null);
         camera.stopPreview();
         camera.release();
@@ -314,10 +314,5 @@ public class MonitorFragment extends Fragment {
         }
 
         return result;
-    }
-
-    private void reload(){
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
     }
 }
