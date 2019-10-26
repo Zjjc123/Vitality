@@ -1,16 +1,11 @@
-package com.JGR.HeartRateMonitor.ui.monitor;
+package com.JGR.HeartRateMonitor.ui;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.hardware.Camera;
-import android.hardware.Camera.PreviewCallback;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -18,25 +13,11 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.fragment.app.FragmentTransaction;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.JGR.HeartRateMonitor.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import static com.JGR.HeartRateMonitor.ImageProcessing.decodeYUV420SPtoRedAvg;
-
 
 
 /**
@@ -64,9 +45,9 @@ public class MonitorFragment extends Fragment {
         GREEN, RED
     }
 
-    private static com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE currentType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.GREEN;
+    private static MonitorFragment.TYPE currentType = MonitorFragment.TYPE.GREEN;
 
-    public static com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE getCurrent() {
+    public static MonitorFragment.TYPE getCurrent() {
         return currentType;
     }
 
@@ -85,17 +66,12 @@ public class MonitorFragment extends Fragment {
      * {@inheritDoc}
      */
     @SuppressLint("NewApi")
-    private MonitorViewModel monitorViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //System.out.println("oncreateview");
-        monitorViewModel =
-                ViewModelProviders.of(this).get(MonitorViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_monitor, container, false);
 
-        //setContentView(R.layout.activity_main);
+        View root = inflater.inflate(R.layout.fragment_monitor, container, false);
 
         preview = root.findViewById(R.id.preview);
         previewHolder = preview.getHolder();
@@ -191,15 +167,15 @@ public class MonitorFragment extends Fragment {
                 }
 
                 int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
-                com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE newType = currentType;
+                MonitorFragment.TYPE newType = currentType;
                 if (imgAvg < rollingAverage) {
-                    newType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.RED;
+                    newType = MonitorFragment.TYPE.RED;
                     if (newType != currentType) {
                         beats++;
                         // Log.d(TAG, "BEAT!! beats="+beats);
                     }
                 } else if (imgAvg > rollingAverage) {
-                    newType = com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.GREEN;
+                    newType = MonitorFragment.TYPE.GREEN;
                 }
 
                 if (averageIndex == averageArraySize) averageIndex = 0;

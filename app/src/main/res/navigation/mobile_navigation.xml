@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment"
+        android:name="com.JGR.HeartRateMonitor.ui.MonitorFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_monitor" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.JGR.HeartRateMonitor.ui.dashboard.DashboardFragment"
+        android:name="com.JGR.HeartRateMonitor.ui.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.JGR.HeartRateMonitor.ui.profile.ProfileFragment"
+        android:name="com.JGR.HeartRateMonitor.ui.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_profile" />
 </navigation>

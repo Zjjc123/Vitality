@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.JGR.HeartRateMonitor.ui.MonitorFragment;
+
 
 /**
  * This class extends the View class and is designed draw the heartbeat image.
@@ -60,7 +62,7 @@ public class HeartRateView extends View {
         if (canvas == null) throw new NullPointerException();
 
         Bitmap bitmap = null;
-        if (com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.getCurrent() == com.JGR.HeartRateMonitor.ui.monitor.MonitorFragment.TYPE.GREEN) bitmap = greenBitmap;
+        if (MonitorFragment.getCurrent() == MonitorFragment.TYPE.GREEN) bitmap = greenBitmap;
         else bitmap = redBitmap;
 
         int bitmapX = bitmap.getWidth() / 2;
