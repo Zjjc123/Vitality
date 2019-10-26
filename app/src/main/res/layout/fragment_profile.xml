@@ -64,17 +64,7 @@ android:background="@color/windowsBackground">
     android:id="@+id/bt_calculate"
     android:layout_gravity="center_horizontal" />
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calculate"
-        android:id="@+id/bt_calculate"
-        android:layout_gravity="center_horizontal" />
-
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
