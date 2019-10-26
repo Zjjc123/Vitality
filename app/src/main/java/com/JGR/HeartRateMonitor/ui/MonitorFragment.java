@@ -118,6 +118,23 @@ public class MonitorFragment extends Fragment {
         camera = null;
     }
 
+    private static void ResetData()
+    {
+        for (int i = 0; i < averageArray.length; i ++)
+        {
+            averageArray[i] = 0;
+        }
+        System.out.println();
+
+        for (int i = 0; i < beatsArray.length; i ++)
+        {
+            beatsArray[i] = 0;
+        }
+        startTime = System.currentTimeMillis();
+        beatsIndex = 0;
+        averageIndex = 0;
+    }
+
     private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
         /**
@@ -125,16 +142,23 @@ public class MonitorFragment extends Fragment {
          */
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
+            // Checking if camera has been initialized
             try {
                 cam.getParameters();
             } catch (Exception e){
                 return;
             }
-            if (data == null) throw new NullPointerException();
-            Camera.Size size = cam.getParameters().getPreviewSize();
-            if (size == null) throw new NullPointerException();
+            if (data == null)
+                throw new NullPointerException();
 
-            if (!processing.compareAndSet(false, true)) return;
+            Camera.Parameters parameters = camera.getParameters();
+            Camera.Size size = parameters.getPreviewSize();
+
+            if (size == null)
+                throw new NullPointerException();
+
+            if (!processing.compareAndSet(false, true))
+                return;
 
             int width = size.width;
             int height = size.height;
@@ -142,31 +166,41 @@ public class MonitorFragment extends Fragment {
             int imgAvg = com.JGR.HeartRateMonitor.ImageProcessing.decodeYUV420SPtoRedAvg(data.clone(), height, width);
             // Log.i(TAG, "imgAvg="+imgAvg);
             //System.out.println("imgAvg=" + imgAvg);
+
+            // If red average is less than 200 --> assume finger is not on
             if (imgAvg < 200) {
                 fingerOn = false;
                 initialScan = false;
 
                 text.setText("Place finger on camera!");
 
+                // If finger is not on Camera --> reset previous data
+                ResetData();
                 processing.set(false);
                 return;
             } else {
                 fingerOn = true;
 
+                // If finger is just placed on --> set text to 'Scanning...'
                 if (!initialScan) {
                     text.setText("Scanning...");
                 }
 
                 int averageArrayAvg = 0;
                 int averageArrayCnt = 0;
+
+                // Rolling average --> every number above 200 is counted and averaged to determine the average
                 for (int i = 0; i < averageArray.length; i++) {
-                    if (averageArray[i] > 0) {
+                    if (averageArray[i] > 200) {
                         averageArrayAvg += averageArray[i];
                         averageArrayCnt++;
                     }
                 }
-
                 int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
+
+                System.out.println("Average: " + rollingAverage);
+
+                // If the new image is less than the rolling average --> BEAT
                 MonitorFragment.TYPE newType = currentType;
                 if (imgAvg < rollingAverage) {
                     newType = MonitorFragment.TYPE.RED;
@@ -174,11 +208,16 @@ public class MonitorFragment extends Fragment {
                         beats++;
                         // Log.d(TAG, "BEAT!! beats="+beats);
                     }
+                    // If not then did not beat
                 } else if (imgAvg > rollingAverage) {
                     newType = MonitorFragment.TYPE.GREEN;
                 }
 
-                if (averageIndex == averageArraySize) averageIndex = 0;
+
+                // If average index is at 4 --> start from 0
+                if (averageIndex == averageArraySize)
+                    averageIndex = 0;
+
                 averageArray[averageIndex] = imgAvg;
                 averageIndex++;
 
@@ -190,11 +229,16 @@ public class MonitorFragment extends Fragment {
 
                 long endTime = System.currentTimeMillis();
                 double totalTimeInSecs = (endTime - startTime) / 1000d;
+                // Every update
                 if (totalTimeInSecs >= updateTime) {
                     if (!initialScan)
                         initialScan = true;
                     double bps = (beats / totalTimeInSecs);
+
+                    // Calculate beats per minute
                     int dpm = (int) (bps * 60d);
+
+                    // If bpm is less than 30 or greater than 180 skip
                     if (dpm < 30 || dpm > 180) {
                         startTime = System.currentTimeMillis();
                         beats = 0;
@@ -205,12 +249,18 @@ public class MonitorFragment extends Fragment {
                     // Log.d(TAG,
                     // "totalTimeInSecs="+totalTimeInSecs+" beats="+beats);
 
-                    if (beatsIndex == beatsArraySize) beatsIndex = 0;
+
+                    // if = 3, reset
+                    if (beatsIndex == beatsArraySize)
+                        beatsIndex = 0;
+
+                    // Stores past calculated bpm
                     beatsArray[beatsIndex] = dpm;
                     beatsIndex++;
 
                     int beatsArrayAvg = 0;
                     int beatsArrayCnt = 0;
+
                     for (int i = 0; i < beatsArray.length; i++) {
                         if (beatsArray[i] > 0) {
                             beatsArrayAvg += beatsArray[i];
@@ -218,11 +268,29 @@ public class MonitorFragment extends Fragment {
                         }
                     }
                     int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
+                    // Calculate the bpm of past 3 bpm
+
                     text.setText(String.valueOf(beatsAvg));
                     startTime = System.currentTimeMillis();
                     beats = 0;
                 }
             }
+
+            for (int i = 0; i < averageArray.length; i ++)
+            {
+                System.out.print(averageArray[i] + ", ");
+            }
+            System.out.println();
+
+            for (int i = 0; i < beatsArray.length; i ++)
+            {
+                System.out.print(beatsArray[i] + ", ");
+            }
+            System.out.println();
+
+
+
+            camera.setParameters(parameters);
             processing.set(false);
         }
     };
@@ -255,6 +323,7 @@ public class MonitorFragment extends Fragment {
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             Camera.Parameters parameters = camera.getParameters();
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+
             Camera.Size size = getSmallestPreviewSize(width, height, parameters);
             if (size != null) {
                 parameters.setPreviewSize(size.width, size.height);
