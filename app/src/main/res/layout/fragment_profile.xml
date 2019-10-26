@@ -13,9 +13,24 @@ android:paddingTop="@dimen/activity_vertical_margin">
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="BMI Calculator"
+    android:text="My Profile"
     android:id="@+id/tv_title"
     android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disp_weight"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disp_height"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disp_age"/>
 
 <EditText
     android:layout_width="match_parent"
@@ -44,7 +59,7 @@ android:paddingTop="@dimen/activity_vertical_margin">
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Calculate"
+    android:text="Save"
     android:id="@+id/bt_calculate"
     android:layout_gravity="center_horizontal" />
 
