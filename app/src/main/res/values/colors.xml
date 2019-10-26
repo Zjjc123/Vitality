@@ -3,5 +3,7 @@
     <color name="colorPrimary">#313131</color>
     <color name="colorPrimaryDark">#252525</color>
     <color name="colorAccent">#E92B1D</color>
-    <color name="windowsBackground">#FFFFFF</color>
+    <color name="bottomNav">#EEEEEE</color>
+    <color name="bottomNavDark">#A7A7A7</color>
+
 </resources>

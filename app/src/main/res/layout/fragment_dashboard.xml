@@ -8,11 +8,10 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/text_dashboard"
-        android:background="@color/windowsBackground"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     </ListView>
 
 </LinearLayout>
