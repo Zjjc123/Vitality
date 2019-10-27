@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     String mTitle[] = {
             "Pushups",
             "Steps",
-            "Completions"
+            "Situps"
     };
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         listView = findViewById(R.id.settings_list);
-        ((ViewGroup)listView.getParent()).removeView(listView);
         MyAdapter adapter = new MyAdapter(this, mTitle);
         listView.setAdapter(adapter);
 
         toolbar = findViewById(R.id.action_bar);
-        toolbar.setTitle("Settings");
+        toolbar.setTitle("Notification Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

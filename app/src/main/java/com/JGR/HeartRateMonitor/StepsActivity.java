@@ -33,7 +33,7 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
 
     private TextView tv_steps;
     private int total;
-    SharedPreferences totalCount;
+    SharedPreferences settings;
     private SensorManager sensorManager;
     private StepDetector simpleStepDetector;
     private Sensor accel;
@@ -59,8 +59,8 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
         simpleStepDetector.registerListener(this);
 
 
-        totalCount = getSharedPreferences("settings", MODE_PRIVATE);
-        numSteps = totalCount.getInt("numSteps", 0);
+        settings = getSharedPreferences("settings", MODE_PRIVATE);
+        numSteps = settings.getInt("numSteps", 0);
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
         if (numSteps == 0){
@@ -113,8 +113,8 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
 
         tv_steps.setText(Integer.toString(numSteps));
 
-        totalCount = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = totalCount.edit();
+        settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
         editor.putInt("numSteps", numSteps);
         editor.apply();
     }

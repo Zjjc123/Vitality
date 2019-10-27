@@ -32,8 +32,9 @@
             android:gravity="center"
             android:hint="Enter Your Name"
             android:inputType="textPersonName|textCapWords"
-            android:paddingTop="50dp"
-            android:paddingBottom="70dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp"
+            android:scaleY="1"
             android:selectAllOnFocus="true"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
@@ -81,10 +82,10 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.178"
+            app:layout_constraintHorizontal_bias="0.205"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_name"
-            app:layout_constraintVertical_bias="0.164" />
+            app:layout_constraintVertical_bias="0.103" />
 
         <EditText
             android:id="@+id/et_height"
