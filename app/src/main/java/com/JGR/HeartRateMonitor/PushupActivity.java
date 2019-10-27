@@ -50,19 +50,19 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
     private int downColor = Color.GREEN;
     private int upColor = Color.DKGRAY;
 
-    public static final String PREFS_NAME = "MyPrefsFile";
+    public static SharedPreferences settings;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushup);
 
         toolbar = findViewById(R.id.action_bar);
-        toolbar.setTitle("Pushup Counter");
+        toolbar.setTitle("Push Up Counter");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        totalCount = getSharedPreferences(PREFS_NAME,0);
+        settings = getSharedPreferences("settings",0);
 
         counter = findViewById(R.id.counter);
         totalText = findViewById(R.id.total);
@@ -74,10 +74,10 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
-        total = totalCount.getInt("total", total);
+        total = totalCount.getInt("pushUps", total);
 
         counter.setText(Integer.toString(count));
-        totalText.setText("Total " + Integer.toString(total));
+        totalText.setText("Daily: " + Integer.toString(total));
 
     }
 
@@ -133,7 +133,7 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
 
             total++;
             SharedPreferences.Editor editor = totalCount.edit();
-            editor.putInt("total", total);
+            editor.putInt("pushUps", total);
             editor.apply();
 
             totalText.setText("Total " + Integer.toString(total));

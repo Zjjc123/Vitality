@@ -29,6 +29,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
 
@@ -79,8 +82,44 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         numSteps = totalCount.getInt("numSteps", 0);
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
+        Calendar cal = Calendar.getInstance();
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+        long milliTime = settings.getLong("time", 0);
+        Date oldDate = new Date(milliTime);
+
+        if (oldDate.getYear() != cal.getTime().getYear() || oldDate.getMonth() != cal.getTime().getMonth() || oldDate.getDay() != cal.getTime().getDay())
+        {
+            resetData();
+        }
+
+
     }
 
+    public void resetData()
+    {
+        System.out.println("Reset Data!");
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("numSteps", 0);
+        editor.putInt("pushUps", 0);
+        editor.apply();
+
+    }
+
+    @Override
+    public void onDestroy ()
+    {
+        super.onDestroy();
+
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+
+        Calendar calendar = Calendar.getInstance();
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putLong("time", calendar.getTimeInMillis());
+
+        editor.apply();
+    }
     /**
      * {@inheritDoc}
      */
