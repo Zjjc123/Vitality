@@ -13,6 +13,8 @@ import com.JGR.HeartRateMonitor.BMIActivity;
 import com.JGR.HeartRateMonitor.MainActivity;
 import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
+import com.JGR.HeartRateMonitor.TargetHRActivity;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,7 +36,7 @@ public class DashboardFragment extends Fragment {
     String mTitle[] = {
             "Pushup Counter",
             "BMI Calculator",
-            "Test",
+            "Target Heart Rate",
             "Test",
             "Test",
             "Test",
@@ -77,6 +79,8 @@ public class DashboardFragment extends Fragment {
                 startActivity(new Intent(getActivity(), PushupActivity.class));
             } else if (position == 1) {
                 startActivity(new Intent(getActivity(), BMIActivity.class));
+            } else if (position == 2) {
+                startActivity(new Intent(getActivity(), TargetHRActivity.class));
             }
             }
         });
