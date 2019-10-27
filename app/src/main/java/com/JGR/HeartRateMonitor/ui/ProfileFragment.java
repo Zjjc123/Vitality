@@ -24,6 +24,9 @@ public class ProfileFragment extends Fragment {
     private EditText height;
     private EditText age;
     private EditText name;
+    private TextView pushups;
+    private TextView situps;
+    private TextView steps;
 
     SharedPreferences sharedPref;
 
@@ -37,6 +40,10 @@ public class ProfileFragment extends Fragment {
         height = root.findViewById(R.id.et_height);
         age = root.findViewById(R.id.et_age);
         name = root.findViewById(R.id.et_name);
+
+        pushups = root.findViewById(R.id.tv_pushups);
+        situps = root.findViewById(R.id.tv_situps);
+        steps = root.findViewById(R.id.tv_steps);
 
 //        disp_weight = root.findViewById(R.id.disp_weight);
 //        disp_height = root.findViewById(R.id.disp_height);
@@ -105,12 +112,19 @@ public class ProfileFragment extends Fragment {
         int weight_val = sharedPref.getInt("weight", 0);
         int height_val = sharedPref.getInt("height", 0);
         int age_val = sharedPref.getInt("age", 0);
+        int pushup_val = sharedPref.getInt("pushUps", 0);
+        int situps_val = sharedPref.getInt("sitUps", 0);
+        int steps_val = sharedPref.getInt("numSteps", 0);
         String name_val = sharedPref.getString("name", "");
 
         weight.setText(checkDefault(weight_val));
         height.setText(checkDefault(height_val));
         age.setText(checkDefault(age_val));
         name.setText(name_val);
+
+        pushups.setText(Integer.toString(pushup_val));
+        situps.setText(Integer.toString(situps_val));
+        steps.setText(Integer.toString(steps_val));
 
 //        disp_weight.setText(checkDefault(weight));
 //        disp_height.setText(checkDefault(height));
