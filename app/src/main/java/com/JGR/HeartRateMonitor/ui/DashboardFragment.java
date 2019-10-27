@@ -61,11 +61,11 @@ public class DashboardFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position ==  1) {
+            if (position ==  4) {
                 startActivity(new Intent(getActivity(), PushupActivity.class));
-            } else if (position == 2) {
+            } else if (position == 1) {
                 startActivity(new Intent(getActivity(), BMIActivity.class));
-            } else if (position == 4) {
+            } else if (position == 2) {
                 startActivity(new Intent(getActivity(), TargetHRActivity.class));
             }
             }

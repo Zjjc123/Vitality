@@ -33,6 +33,7 @@ public class BMIActivity extends AppCompatActivity {
 
     private TextView tv_bmi;
     private TextView tv_health;
+    private TextView tv_profile;
 
     private View view;
 
@@ -50,11 +51,15 @@ public class BMIActivity extends AppCompatActivity {
 
         tv_bmi = findViewById(R.id.tv_bmi);
         tv_health = findViewById(R.id.tv_health);
+        tv_profile = findViewById(R.id.profile);
 
-        tv_bmi.setText(Double.toString(calcBMI()));
+        tv_bmi.setText(String.format("%.1f", calcBMI()));
+        tv_profile.setText("");
 
         if (calcBMI() == 0) {
-            tv_health.setText("Please Set Profile");
+            tv_profile.setText("Please Set Profile");
+            tv_bmi.setText("");
+            tv_health.setText("");
             Toast.makeText(this, "Enter Your personal information in the profile tab",
                     Toast.LENGTH_SHORT).show();
         } else if (calcBMI() < 18.5) {
@@ -108,7 +113,7 @@ public class BMIActivity extends AppCompatActivity {
         int age_val = sharedPref.getInt("age", 0);
 
         if (!(weight_val == 0) && !(height_val == 0) && !(age_val == 0)) {
-            return (703*weight_val)/(height_val*height_val);
+            return (703.0*weight_val)/(height_val*height_val);
         } else {
             return 0;
         }
