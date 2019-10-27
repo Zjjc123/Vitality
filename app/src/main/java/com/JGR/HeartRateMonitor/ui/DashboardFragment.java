@@ -1,5 +1,6 @@
 package com.JGR.HeartRateMonitor.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.JGR.HeartRateMonitor.MainActivity;
+import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
 import android.content.Context;
 import android.os.Bundle;
@@ -28,7 +31,7 @@ public class DashboardFragment extends Fragment {
 
     ListView listView;
     String mTitle[] = {
-            "Test",
+            "Pushup Counter",
             "Test",
             "Test",
             "Test",
@@ -37,7 +40,7 @@ public class DashboardFragment extends Fragment {
             "Test"
     };
     String mDescription[] = {
-            "Test",
+            "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
             "Test",
             "Test",
             "Test",
@@ -69,7 +72,8 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             if (position ==  0) {
-                Toast.makeText(c, "Test Description", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(c, "Test Description", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), PushupActivity.class));
             }
             }
         });
