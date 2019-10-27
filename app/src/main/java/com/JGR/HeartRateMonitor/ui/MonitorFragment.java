@@ -200,6 +200,7 @@ public class MonitorFragment extends Fragment {
                 initialScan = false;
 
                 statusText.setText("Place finger on camera!");
+                mChart.setVisibility(View.INVISIBLE);
                 heartRateText.setText("0");
                 heartImg.setImageResource(R.drawable.heart_icon_off);
 
