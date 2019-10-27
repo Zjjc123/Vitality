@@ -55,23 +55,23 @@ public class BMIActivity extends AppCompatActivity {
 
         if (calcBMI() == 0) {
             tv_health.setText("Please Set Profile");
-            Toast.makeText(this, "Enter Your *personal* information in the profile tab",
+            Toast.makeText(this, "Enter Your personal information in the profile tab",
                     Toast.LENGTH_SHORT).show();
         } else if (calcBMI() < 18.5) {
             tv_health.setText("Underweight");
-            view.setBackgroundColor(Color.parseColor("#03e3fc"));
+            view.setBackgroundColor(Color.parseColor("#65d3db"));
         } else if (calcBMI() < 24.9) {
             tv_health.setText("Healthy");
-            view.setBackgroundColor(Color.parseColor("#1aff00"));
+            view.setBackgroundColor(Color.parseColor("#64de6e"));
         } else if (calcBMI() < 29.9) {
             tv_health.setText("Overweight");
-            view.setBackgroundColor(Color.parseColor("#faab00"));
+            view.setBackgroundColor(Color.parseColor("#d99e4c"));
         } else if (calcBMI() < 34.9) {
             tv_health.setText("Obese");
-            view.setBackgroundColor(Color.parseColor("#fa0000"));
+            view.setBackgroundColor(Color.parseColor("#d94c4c"));
         } else {
             tv_health.setText("Extremely Obese");
-            view.setBackgroundColor(Color.parseColor("#c109de"));
+            view.setBackgroundColor(Color.parseColor("#d47fcf"));
         }
 
     }
