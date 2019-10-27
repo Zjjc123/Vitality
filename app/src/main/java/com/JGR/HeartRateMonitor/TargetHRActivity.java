@@ -44,11 +44,12 @@ public class TargetHRActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tv_target = findViewById(R.id.tv_target);
+        int[] HR = calcHR();
 
-        if (calcLowHR() == 0 || calcHighHR() == 0) {
+        if (HR == null){
             tv_target.setText("Please Set Profile");
         } else {
-            tv_target.setText(calcLowHR() + "-" + calcHighHR());
+            tv_target.setText(HR[0] + " - " + HR[1] + " BPM");
         }
 
     }
@@ -76,41 +77,25 @@ public class TargetHRActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public int calcLowHR() {
+    public int[] calcHR() {
 
         SharedPreferences sharedPref = getSharedPreferences("settings", MODE_PRIVATE);
 
         int age_val = sharedPref.getInt("age", 0);
 
-        int lowHR = (220 - age_val - 50);
+        int[] HR= new int[2];
+        HR[0] = (220 - age_val - 50);
+        HR[1] = (220 - age_val - 20);
 
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("lowHR", lowHR);
+        editor.putInt("lowHR", HR[0]);
+        editor.putInt("highHR", HR[1]);
         editor.apply();
 
         if (!(age_val == 0)) {
-            return lowHR;
+            return HR;
         } else {
-            return 0;
-        }
-    }
-
-    public double calcHighHR() {
-
-        SharedPreferences sharedPref = getSharedPreferences("settings", MODE_PRIVATE);
-
-        int age_val = sharedPref.getInt("age", 0);
-
-        int highHR = (220 - age_val - 20);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("highHR", highHR);
-        editor.apply();
-
-        if (!(age_val == 0)) {
-            return highHR;
-        } else {
-            return 0;
+            return null;
         }
     }
 
