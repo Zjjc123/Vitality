@@ -7,4 +7,7 @@
         android:endColor="@color/gradEnd"
         android:startColor="@color/gradStart" />
 
+    <corners android:radius="25dp"/>
+
+
 </shape>
