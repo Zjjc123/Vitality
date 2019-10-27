@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +49,11 @@ public class BMIActivity extends AppCompatActivity {
 
         tv_bmi.setText(Double.toString(calcBMI()));
 
-        if (calcBMI() < 18.5) {
+        if (calcBMI() == 0) {
+            tv_health.setText("Please Set Profile");
+            Toast.makeText(this, "Enter Your *personal* information in the profile tab",
+                    Toast.LENGTH_SHORT).show();
+        } else if (calcBMI() < 18.5) {
             tv_health.setText("Underweight");
         } else if (calcBMI() < 24.9) {
             tv_health.setText("Healthy");
@@ -88,12 +93,16 @@ public class BMIActivity extends AppCompatActivity {
     public double calcBMI() {
 
         SharedPreferences sharedPref = getSharedPreferences("settings", MODE_PRIVATE);
+
         int weight_val = sharedPref.getInt("weight", 0);
-        System.out.println(weight_val);
         int height_val = sharedPref.getInt("height", 0);
         int age_val = sharedPref.getInt("age", 0);
 
-        return (703*weight_val)/(height_val*height_val);
+        if (!(weight_val == 0) && !(height_val == 0) && !(age_val == 0)) {
+            return (703*weight_val)/(height_val*height_val);
+        } else {
+            return 0;
+        }
     }
 
 }
