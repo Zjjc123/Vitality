@@ -54,7 +54,7 @@ public class DashboardFragment extends Fragment {
             0,
             R.drawable.ic_pushups,
             R.drawable.ic_steps,
-            0
+            R.drawable.ic_situps,
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,

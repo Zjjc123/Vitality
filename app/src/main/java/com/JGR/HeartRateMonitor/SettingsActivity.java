@@ -30,24 +30,19 @@ public class SettingsActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.activity_settings, null, false);
-        listView = view.findViewById(R.id.settings_list);
-        ((ViewGroup)listView.getParent()).removeView(listView);
-        final Context c = this;
-
-        MyAdapter adapter = new MyAdapter(c, mTitle);
-        listView.setAdapter(adapter);
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+
+        listView = findViewById(R.id.settings_list);
+        ((ViewGroup)listView.getParent()).removeView(listView);
+        MyAdapter adapter = new MyAdapter(this, mTitle);
+        listView.setAdapter(adapter);
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("Settings");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        setContentView(listView);
     }
 
     @Override
@@ -69,13 +64,11 @@ public class SettingsActivity extends AppCompatActivity {
             this.rTitle = title;
         }
 
-        View row;
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            row = layoutInflater.inflate(R.layout.settings_row, parent, false);
+            View row = layoutInflater.inflate(R.layout.settings_row, parent, false);
             TextView myTitle = row.findViewById(R.id.settings_header);
 
             myTitle.setText(rTitle[position]);
