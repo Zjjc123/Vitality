@@ -38,11 +38,11 @@ public class DashboardFragment extends Fragment {
     };
     String mDescription[] = {
             "",
-            "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
-            "Calculates your Body Mass Index (BMI) using the values in your profile",
+            "Place your phone directly below your chest and perform pushups, your phone will count and display the number of pushups.",
+            "Calculates your Body Mass Index (BMI) using the values in your profile.",
             "",
-            "What your heart rate should be in order for your exercise to achieve maximum effectiveness",
-            "Counts your Steps"
+            "What your heart rate should be in order for your exercise to achieve maximum effectiveness.",
+            "Counts your steps as you go throughout the day."
     };
     int images[] = {
             0,
@@ -50,7 +50,7 @@ public class DashboardFragment extends Fragment {
             R.drawable.ic_target,
             0,
             R.drawable.ic_pushup,
-            R.drawable.ic_target
+            R.drawable.ic_steps
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
