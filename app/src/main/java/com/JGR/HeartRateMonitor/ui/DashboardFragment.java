@@ -42,10 +42,10 @@ public class DashboardFragment extends Fragment {
     };
     int images[] = {
             0,
-            R.drawable.ic_pushup,
             R.drawable.ic_bmi,
+            R.drawable.ic_target,
             0,
-            R.drawable.ic_target
+            R.drawable.ic_pushup
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,13 +61,13 @@ public class DashboardFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position ==  4) {
-                startActivity(new Intent(getActivity(), PushupActivity.class));
-            } else if (position == 1) {
-                startActivity(new Intent(getActivity(), BMIActivity.class));
-            } else if (position == 2) {
-                startActivity(new Intent(getActivity(), TargetHRActivity.class));
-            }
+                if (position == 1) {
+                    startActivity(new Intent(getActivity(), BMIActivity.class));
+                } else if (position == 2) {
+                    startActivity(new Intent(getActivity(), TargetHRActivity.class));
+                } else if (position == 4) {
+                    startActivity(new Intent(getActivity(), PushupActivity.class));
+                }
             }
         });
 
