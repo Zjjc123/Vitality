@@ -28,7 +28,8 @@ public class MonitorFragment extends Fragment {
     private static SurfaceView preview = null;
     private static SurfaceHolder previewHolder = null;
     private static Camera camera = null;
-    private static TextView text = null;
+    private static TextView heartRateText = null;
+    private static TextView statusText = null;
     private static ImageView heartImg = null;
 
     private static int averageIndex = 0;
@@ -72,7 +73,8 @@ public class MonitorFragment extends Fragment {
         previewHolder.addCallback(surfaceCallback);
         previewHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-        text = root.findViewById(R.id.text);
+        heartRateText = root.findViewById(R.id.heartRateText);
+        statusText = root.findViewById(R.id.statusText);
         heartImg = root.findViewById(R.id.image);
 
         return root;
@@ -166,7 +168,8 @@ public class MonitorFragment extends Fragment {
                 fingerOn = false;
                 initialScan = false;
 
-                text.setText("Place finger on camera!");
+                statusText.setText("Place finger on camera!");
+                heartRateText.setText("0");
                 heartImg.setImageResource(R.drawable.heart_icon_off);
 
                 // If finger is not on Camera --> reset previous data
@@ -178,7 +181,7 @@ public class MonitorFragment extends Fragment {
 
                 // If finger is just placed on --> set text to 'Scanning...'
                 if (!initialScan) {
-                    text.setText("Scanning...");
+                    statusText.setText("Scanning...");
                 }
 
                 int averageArrayAvg = 0;
@@ -261,7 +264,7 @@ public class MonitorFragment extends Fragment {
                     int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
                     // Calculate the bpm of past 3 bpm
 
-                    text.setText(String.valueOf(beatsAvg));
+                    heartRateText.setText(String.valueOf(beatsAvg));
                     startTime = System.currentTimeMillis();
                     beats = 0;
                 }
