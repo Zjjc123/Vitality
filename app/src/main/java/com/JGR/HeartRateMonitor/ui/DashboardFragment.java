@@ -49,7 +49,7 @@ public class DashboardFragment extends Fragment {
             R.drawable.ic_bmi,
             R.drawable.ic_target,
             0,
-            R.drawable.ic_pushup,
+            R.drawable.ic_pushups,
             R.drawable.ic_steps
     };
 
