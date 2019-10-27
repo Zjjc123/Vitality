@@ -2,6 +2,7 @@ package com.JGR.HeartRateMonitor.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.strictmode.InstanceCountViolation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.JGR.HeartRateMonitor.BMIActivity;
 import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
+import com.JGR.HeartRateMonitor.StepsActivity;
 import com.JGR.HeartRateMonitor.TargetHRActivity;
 
 import android.content.Context;
@@ -31,21 +33,24 @@ public class DashboardFragment extends Fragment {
             "BMI Calculator",
             "Target Heart Rate",
             "Counters",
-            "Pushup Counter"
+            "Pushup Counter",
+            "Step Counter"
     };
     String mDescription[] = {
             "",
             "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
             "Calculates your Body Mass Index (BMI) using the values in your profile",
             "",
-            "What your heart rate should be in order for your exercise to achieve maximum effectiveness"
+            "What your heart rate should be in order for your exercise to achieve maximum effectiveness",
+            "Counts your Steps"
     };
     int images[] = {
             0,
+            R.drawable.ic_pushup,
             R.drawable.ic_bmi,
-            R.drawable.ic_target,
             0,
-            R.drawable.ic_pushup
+            R.drawable.ic_target,
+            R.drawable.ic_target
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,12 +66,14 @@ public class DashboardFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
+                if (position ==  4) {
+                    startActivity(new Intent(getActivity(), PushupActivity.class));
+                } else if (position == 1) {
                     startActivity(new Intent(getActivity(), BMIActivity.class));
                 } else if (position == 2) {
                     startActivity(new Intent(getActivity(), TargetHRActivity.class));
-                } else if (position == 4) {
-                    startActivity(new Intent(getActivity(), PushupActivity.class));
+                } else if (position == 5) {
+                    startActivity(new Intent(getActivity(), StepsActivity.class));
                 }
             }
         });
