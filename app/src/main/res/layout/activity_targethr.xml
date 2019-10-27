@@ -22,11 +22,11 @@
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#FFFFFF"
-        android:textSize="150sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/action_bar"/>
+        app:layout_constraintTop_toTopOf="@+id/action_bar" />
 
     <TextView
         android:id="@+id/tv_target_high"
@@ -35,10 +35,10 @@
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#FFFFFF"
-        android:textSize="150sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/action_bar"/>
+        app:layout_constraintTop_toTopOf="@+id/action_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
