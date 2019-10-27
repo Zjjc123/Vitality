@@ -1,183 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin">
-        android:background="@color/windowsBackground"">
 
-        <RelativeLayout
-            android:id="@+id/rellay1"
-            android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/grad"
+            android:gravity="center"
+            android:hint="Enter Your Name"
+            android:inputType="textPersonName"
             android:paddingTop="50dp"
-            android:paddingBottom="70dp">
+            android:paddingBottom="70dp"
+            android:selectAllOnFocus="true"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/et_name"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15sp"
-                android:background="@null"
-                android:fontFamily="sans-serif-light"
-                android:hint="Enter Your Name"
-                android:textColor="#FFFFFF"
-                android:selectAllOnFocus="true"
-                android:textSize="32sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_age"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Age"
-                        android:textColor="#3797CF"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/et_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:fontFamily="sans-serif-light"
-                        android:layout_marginTop="5dp"
-                        android:hint="Enter Your Age In Years"
-                        android:selectAllOnFocus="true"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#E5E5E5" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Height"
-                        android:textColor="#3797CF"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/et_height"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:fontFamily="sans-serif-light"
-                        android:hint="Enter Your Height in Inches"
-                        android:selectAllOnFocus="true"
-                        android:layout_marginTop="5dp"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#E5E5E5" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Weight"
-                        android:textColor="#3797CF"
-                        android:textSize="13sp" />
-
-                    <EditText
-                        android:id="@+id/et_weight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:fontFamily="sans-serif-light"
-                        android:layout_marginTop="5dp"
-                        android:hint="Enter Your Weight in Pounds"
-                        android:selectAllOnFocus="true"
-                        android:inputType="number"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#E5E5E5" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@null"
+            android:hint="Enter Your Age In Years"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="64dp"
+            android:text="Height"
+            android:textColor="#3797CF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="50dp"
+            android:text="Age"
+            android:textColor="#3797CF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
-            <Button
-                android:id="@+id/btn_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="sans-serif-light"
-                android:text="update"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="18sp" />
-        </RelativeLayout>
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/et_height"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@null"
+            android:hint="Enter Your Height in Inches"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="64dp"
+            android:text="Weight"
+            android:textColor="#3797CF"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@null"
+            android:hint="Enter Your Weight in Pounds"
+            android:inputType="number"
+            android:selectAllOnFocus="true"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_weight"
+            app:layout_constraintVertical_bias="0.29000002" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

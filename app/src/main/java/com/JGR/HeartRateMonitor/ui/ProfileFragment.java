@@ -105,7 +105,7 @@ public class ProfileFragment extends Fragment {
         int weight_val = sharedPref.getInt("weight", 0);
         int height_val = sharedPref.getInt("height", 0);
         int age_val = sharedPref.getInt("age", 0);
-        String name_val = sharedPref.getString("name", "default");
+        String name_val = sharedPref.getString("name", "");
 
         weight.setText(checkDefault(weight_val));
         height.setText(checkDefault(height_val));
