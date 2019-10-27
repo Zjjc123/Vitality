@@ -1,30 +1,14 @@
 package com.JGR.HeartRateMonitor;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.widget.Toolbar;
 
 public class TargetHRActivity extends AppCompatActivity {
@@ -32,10 +16,16 @@ public class TargetHRActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     private TextView tv_target;
+    private View view;
+    private int bgColor = Color.DKGRAY;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_targethr);
+
+
+        view = this.getWindow().getDecorView();
+        view.setBackgroundColor(bgColor);
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("Target Heart Rate");
@@ -43,7 +33,7 @@ public class TargetHRActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tv_target = findViewById(R.id.tv_target);
+        tv_target = findViewById(R.id.tv_target_low);
         int[] HR = calcHR();
 
         if (HR == null){

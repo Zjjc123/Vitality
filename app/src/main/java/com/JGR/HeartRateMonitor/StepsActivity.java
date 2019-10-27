@@ -32,6 +32,7 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
     Toolbar toolbar;
 
     private TextView tv_steps;
+    private View view;
     private int total;
     SharedPreferences settings;
     private SensorManager sensorManager;
@@ -39,10 +40,14 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
     private Sensor accel;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
+    private int bgColor = Color.DKGRAY;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_steps);
+
+        view = this.getWindow().getDecorView();
+        view.setBackgroundColor(bgColor);
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("Step Counter");
