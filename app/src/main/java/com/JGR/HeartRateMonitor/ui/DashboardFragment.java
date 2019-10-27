@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.JGR.HeartRateMonitor.BMIActivity;
 import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
+import com.JGR.HeartRateMonitor.SitUpActivity;
 import com.JGR.HeartRateMonitor.StepsActivity;
 import com.JGR.HeartRateMonitor.TargetHRActivity;
 
@@ -34,7 +35,8 @@ public class DashboardFragment extends Fragment {
             "Target Heart Rate",
             "Counters",
             "Pushup Counter",
-            "Step Counter"
+            "Step Counter",
+            "Sit Up Counter"
     };
     String mDescription[] = {
             "",
@@ -42,7 +44,8 @@ public class DashboardFragment extends Fragment {
             "Calculates your Body Mass Index (BMI) using the values in your profile.",
             "",
             "What your heart rate should be in order for your exercise to achieve maximum effectiveness.",
-            "Counts your steps as you go throughout the day."
+            "Counts your steps as you go throughout the day.",
+            "Counts the number of sit ups you do. Please hold the screen face up flat on your chest"
     };
     int images[] = {
             0,
@@ -50,7 +53,8 @@ public class DashboardFragment extends Fragment {
             R.drawable.ic_target,
             0,
             R.drawable.ic_pushups,
-            R.drawable.ic_steps
+            R.drawable.ic_steps,
+            0
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -74,6 +78,9 @@ public class DashboardFragment extends Fragment {
                     startActivity(new Intent(getActivity(), TargetHRActivity.class));
                 } else if (position == 5) {
                     startActivity(new Intent(getActivity(), StepsActivity.class));
+                } else if (position == 6)
+                {
+                    startActivity(new Intent(getActivity(), SitUpActivity.class));
                 }
             }
         });

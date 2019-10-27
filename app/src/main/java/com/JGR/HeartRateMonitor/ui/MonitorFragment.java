@@ -117,41 +117,31 @@ public class MonitorFragment extends Fragment {
         return root;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onResume() {
         super.onResume();
         camera = Camera.open();
         camera.setDisplayOrientation(90);
-        camera.setPreviewCallback(previewCallback);
-        camera.startPreview();
+
         preview.setVisibility(View.VISIBLE);
 
         startTime = System.currentTimeMillis();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void onPause() {
         super.onPause();
-        //System.out.println("onPause");
         camera.setPreviewCallback(null);
-        preview.setVisibility(View.GONE);
         camera.stopPreview();
         camera.release();
         camera = null;
+
+        preview.setVisibility(View.GONE);
     }
 
     private static void ResetData()
@@ -173,14 +163,12 @@ public class MonitorFragment extends Fragment {
 
     private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
             // Checking if camera has been initialized
             try {
                 cam.getParameters();
+
             } catch (Exception e){
                 return;
             }
