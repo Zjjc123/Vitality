@@ -74,6 +74,10 @@ public class MonitorFragment extends Fragment {
 
     private  LineChart mChart;
     private  int chartIndex = 0;
+    private int beatsAvg;
+
+    private View root;
+    private TextView bpmText;
 
     /**
      * {@inheritDoc}
@@ -84,7 +88,7 @@ public class MonitorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_monitor, container, false);
+        root = inflater.inflate(R.layout.fragment_monitor, container, false);
 
         preview = root.findViewById(R.id.preview);
         previewHolder = preview.getHolder();
@@ -93,6 +97,7 @@ public class MonitorFragment extends Fragment {
 
         heartRateText = root.findViewById(R.id.heartRateText);
         statusText = root.findViewById(R.id.statusText);
+        bpmText = root.findViewById(R.id.bpmText);
         heartImg = root.findViewById(R.id.image);
 
         mChart = root.findViewById(R.id.chart);
@@ -199,7 +204,12 @@ public class MonitorFragment extends Fragment {
                 fingerOn = false;
                 initialScan = false;
 
-                statusText.setText("Place finger on camera!");
+                statusText.setText("Place Your Finger on the Camera");
+                statusText.setTextSize(40);
+
+                statusText.setTextColor(Color.parseColor("#8a000000"));
+                heartRateText.setTextColor(Color.parseColor("#8a000000"));
+                bpmText.setTextColor(Color.parseColor("#8a000000"));
                 mChart.setVisibility(View.INVISIBLE);
                 heartRateText.setText("0");
                 heartImg.setImageResource(R.drawable.heart_icon_off);
@@ -325,7 +335,7 @@ public class MonitorFragment extends Fragment {
                             beatsArrayCnt++;
                         }
                     }
-                    int beatsAvg = (beatsArrayAvg / beatsArrayCnt);
+                    beatsAvg = (beatsArrayAvg / beatsArrayCnt);
                     // Calculate the bpm of past 3 bpm
 
                     heartRateText.setText(String.valueOf(beatsAvg));
@@ -438,12 +448,30 @@ public class MonitorFragment extends Fragment {
         int hr_high = sharedPref.getInt("highHR", 0);
         int age_val = sharedPref.getInt("age", 0);
 
+        if (age_val!=0){
+            statusText.setTextSize(20);
+        }
+
         if (!(hr_low == 0) && !(hr_high == 0)) {
-            statusText.setText("Target Heart Rate During Exercise\n" + hr_low + " - " + hr_high);
+            if (beatsAvg >= hr_low && beatsAvg <= hr_high) {
+                heartRateText.setTextColor(Color.parseColor("#64de6e"));
+                bpmText.setTextColor(Color.parseColor("#64de6e"));
+            } else {
+                heartRateText.setTextColor(Color.parseColor("#d94c4c"));
+                bpmText.setTextColor(Color.parseColor("#d94c4c"));
+            }
+            statusText.setText("Target Heart Rate During Exercise:\n" + hr_low + " - " + hr_high);
         } else if(!(age_val == 0)){
             hr_low = (220 - age_val - 50);
             hr_high = (220 - age_val - 20);
-            statusText.setText("Target Heart Rate During Exercise\n" + hr_low + " - " + hr_high);
+            if (beatsAvg >= hr_low && beatsAvg <= hr_high) {
+                heartRateText.setTextColor(Color.parseColor("#64de6e"));
+                bpmText.setTextColor(Color.parseColor("#64de6e"));
+            } else{
+                heartRateText.setTextColor(Color.parseColor("#d94c4c"));
+                bpmText.setTextColor(Color.parseColor("#d94c4c"));
+            }
+            statusText.setText("Target Heart Rate During Exercise:\n" + hr_low + " - " + hr_high);
         } else {
             statusText.setText("Scanning...");
         }
