@@ -3,6 +3,8 @@ package com.JGR.HeartRateMonitor.ui;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Camera;
@@ -33,19 +35,20 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 public class MonitorFragment extends Fragment {
 
-    private static final String TAG = "HeartRateMonitor";
-    private static final AtomicBoolean processing = new AtomicBoolean(false);
+    private final String TAG = "HeartRateMonitor";
+    private final AtomicBoolean processing = new AtomicBoolean(false);
 
-    private static SurfaceView preview = null;
-    private static SurfaceHolder previewHolder = null;
-    private static Camera camera = null;
-    private static TextView heartRateText = null;
-    private static TextView statusText = null;
-    private static ImageView heartImg = null;
+    private  SurfaceView preview = null;
+    private  SurfaceHolder previewHolder = null;
+    private  Camera camera = null;
+    private  TextView heartRateText = null;
+    private  TextView statusText = null;
+    private  ImageView heartImg = null;
+    private  SharedPreferences sharedPref;
 
-    private static int averageIndex = 0;
-    private static final int averageArraySize = 4;
-    private static final int[] averageArray = new int[averageArraySize];
+    private  int averageIndex = 0;
+    private  final int averageArraySize = 4;
+    private  final int[] averageArray = new int[averageArraySize];
 
     public enum TYPE {
         GREEN, RED
@@ -57,20 +60,20 @@ public class MonitorFragment extends Fragment {
         return currentType;
     }
 
-    private static int beatsIndex = 0;
-    private static final int beatsArraySize = 3;
-    private static final int[] beatsArray = new int[beatsArraySize];
-    private static double beats = 0;
-    private static long startTime = 0;
+    private  int beatsIndex = 0;
+    private  final int beatsArraySize = 3;
+    private  final int[] beatsArray = new int[beatsArraySize];
+    private  double beats = 0;
+    private  long startTime = 0;
 
 
-    private static boolean fingerOn = false;
-    private static int updateTime = 3;
-    private static boolean initialScan = false;
+    private  boolean fingerOn = false;
+    private  int updateTime = 3;
+    private  boolean initialScan = false;
 
 
-    private static LineChart mChart;
-    private static int chartIndex = 0;
+    private  LineChart mChart;
+    private  int chartIndex = 0;
 
     /**
      * {@inheritDoc}
@@ -144,7 +147,7 @@ public class MonitorFragment extends Fragment {
         //preview.setVisibility(View.GONE);
     }
 
-    private static void ResetData()
+    private  void ResetData()
     {
         for (int i = 0; i < averageArray.length; i ++)
         {
@@ -161,7 +164,7 @@ public class MonitorFragment extends Fragment {
         averageIndex = 0;
     }
 
-    private static Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
+    private  Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
         @Override
         public void onPreviewFrame(byte[] data, Camera cam) {
@@ -324,6 +327,7 @@ public class MonitorFragment extends Fragment {
                     // Calculate the bpm of past 3 bpm
 
                     heartRateText.setText(String.valueOf(beatsAvg));
+                    showTarget();
                     startTime = System.currentTimeMillis();
                     beats = 0;
                 }
@@ -345,7 +349,7 @@ public class MonitorFragment extends Fragment {
         }
     };
 
-    private static SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
+    private  SurfaceHolder.Callback surfaceCallback = new SurfaceHolder.Callback() {
 
         /**
          * {@inheritDoc}
@@ -392,7 +396,7 @@ public class MonitorFragment extends Fragment {
         }
     };
 
-    private static Camera.Size getSmallestPreviewSize(int width, int height, Camera.Parameters parameters) {
+    private  Camera.Size getSmallestPreviewSize(int width, int height, Camera.Parameters parameters) {
         Camera.Size result = null;
 
         for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
@@ -411,7 +415,7 @@ public class MonitorFragment extends Fragment {
         return result;
     }
 
-    private static LineDataSet createSet() {
+    private  LineDataSet createSet() {
 
         LineDataSet set = new LineDataSet(null, null);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
@@ -424,4 +428,23 @@ public class MonitorFragment extends Fragment {
         set.setCubicIntensity(0.2f);
         return set;
     }
+
+    private  void showTarget() {
+        sharedPref = getContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        int hr_low = sharedPref.getInt("lowHR", 0);
+        int hr_high = sharedPref.getInt("highHR", 0);
+        int age_val = sharedPref.getInt("age", 0);
+
+        if (!(hr_low == 0) && !(hr_high == 0)) {
+            statusText.setText("Target Heart Rate During Exercise\n" + hr_low + " - " + hr_high);
+        } else if(!(age_val == 0)){
+            hr_low = (220 - age_val - 50);
+            hr_high = (220 - age_val - 20);
+            statusText.setText("Target Heart Rate During Exercise\n" + hr_low + " - " + hr_high);
+        } else {
+            statusText.setText("Scanning...");
+        }
+
+    }
+
 }
