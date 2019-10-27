@@ -46,7 +46,7 @@ public class TargetHRActivity extends AppCompatActivity {
         tv_target = findViewById(R.id.tv_target);
 
         if (calcLowHR() == 0 || calcHighHR() == 0) {
-            tv_target.setText("Set Yo Profile, Bro");
+            tv_target.setText("Please Set Profile");
         } else {
             tv_target.setText(calcLowHR() + "-" + calcHighHR());
         }

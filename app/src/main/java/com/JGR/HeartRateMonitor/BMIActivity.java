@@ -51,14 +51,13 @@ public class BMIActivity extends AppCompatActivity {
 
         tv_bmi = findViewById(R.id.tv_bmi);
         tv_health = findViewById(R.id.tv_health);
-        tv_profile = findViewById(R.id.profile);
 
         tv_bmi.setText(String.format("%.1f", calcBMI()));
-        tv_profile.setText("");
 
         if (calcBMI() == 0) {
-            tv_profile.setText("Please Set Profile");
-            tv_bmi.setText("");
+            tv_bmi.setText("Please Set Profile");
+            tv_bmi.setTextColor(Color.parseColor("#000000"));
+            tv_bmi.setTextSize(40);
             tv_health.setText("");
             Toast.makeText(this, "Enter Your personal information in the profile tab",
                     Toast.LENGTH_SHORT).show();
