@@ -167,6 +167,7 @@ public class MonitorFragment extends Fragment {
                 initialScan = false;
 
                 text.setText("Place finger on camera!");
+                heartImg.setImageResource(R.drawable.heart_icon_off);
 
                 // If finger is not on Camera --> reset previous data
                 ResetData();
