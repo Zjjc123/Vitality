@@ -254,7 +254,7 @@ public class MonitorFragment extends Fragment {
                     mChart.notifyDataSetChanged();
 
                     // limit the number of visible entries
-                    mChart.setVisibleXRangeMaximum(150);
+                    mChart.setVisibleXRangeMaximum(50);
                     // mChart.setVisibleYRange(30, AxisDependency.LEFT);
 
                     // move to the latest entry
@@ -424,12 +424,12 @@ public class MonitorFragment extends Fragment {
 
         LineDataSet set = new LineDataSet(null, null);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setLineWidth(3f);
+        set.setLineWidth(5f);
         set.setColor(Color.BLACK);
         set.setHighlightEnabled(false);
         set.setDrawValues(false);
         set.setDrawCircles(false);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
         set.setCubicIntensity(0.2f);
         return set;
     }
