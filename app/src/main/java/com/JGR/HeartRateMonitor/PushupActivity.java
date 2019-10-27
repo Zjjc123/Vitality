@@ -135,7 +135,7 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
             editor.putInt("pushUps", daily);
             editor.apply();
 
-            totalText.setText("Total " + daily);
+            totalText.setText("Daily: " + daily);
 
         }
     }
