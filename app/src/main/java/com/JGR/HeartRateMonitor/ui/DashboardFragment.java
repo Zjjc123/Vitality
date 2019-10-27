@@ -46,10 +46,10 @@ public class DashboardFragment extends Fragment {
     };
     int images[] = {
             0,
-            R.drawable.ic_pushup,
             R.drawable.ic_bmi,
-            0,
             R.drawable.ic_target,
+            0,
+            R.drawable.ic_pushup,
             R.drawable.ic_target
     };
 

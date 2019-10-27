@@ -133,7 +133,9 @@ public class MonitorFragment extends Fragment {
         super.onResume();
         camera = Camera.open();
         camera.setDisplayOrientation(90);
-        //System.out.println("onResume");
+        camera.setPreviewCallback(previewCallback);
+        camera.startPreview();
+        preview.setVisibility(View.VISIBLE);
 
         startTime = System.currentTimeMillis();
     }
@@ -146,6 +148,7 @@ public class MonitorFragment extends Fragment {
         super.onPause();
         //System.out.println("onPause");
         camera.setPreviewCallback(null);
+        preview.setVisibility(View.GONE);
         camera.stopPreview();
         camera.release();
         camera = null;
