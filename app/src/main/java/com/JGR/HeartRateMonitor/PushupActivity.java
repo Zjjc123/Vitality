@@ -57,15 +57,13 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
         setContentView(R.layout.activity_pushup);
 
         toolbar = findViewById(R.id.action_bar);
-        toolbar.setTitle("Push-ups");
+        toolbar.setTitle("Pushup Counter");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         totalCount = getSharedPreferences(PREFS_NAME,0);
 
-
-        textView = findViewById(R.id.textView);
         counter = findViewById(R.id.counter);
         totalText = findViewById(R.id.total);
 
@@ -77,7 +75,6 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
         total = totalCount.getInt("total", total);
-
 
         counter.setText(Integer.toString(count));
         totalText.setText("Total " + Integer.toString(total));
@@ -117,8 +114,6 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
             } else {
                 pushUpUp();
             }
-
-            textView.setText(Float.toString(event.values[0]));
         }
     }
 
