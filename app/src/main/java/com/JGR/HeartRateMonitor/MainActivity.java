@@ -2,7 +2,9 @@ package com.JGR.HeartRateMonitor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -11,7 +13,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.PowerManager;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         totalCount = getSharedPreferences("settings", MODE_PRIVATE);
-        numSteps = totalCount.getInt("total", 0);
+        numSteps = totalCount.getInt("numSteps", 0);
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
     }
