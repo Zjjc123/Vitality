@@ -27,12 +27,6 @@ public class ProfileFragment extends Fragment {
 
     SharedPreferences sharedPref;
 
-    private TextView tv_result;
-    private TextView disp_weight;
-    private TextView disp_height;
-    private TextView disp_age;
-
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +59,7 @@ public class ProfileFragment extends Fragment {
 
     private void storeValues() {
 
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        sharedPref = getActivity().getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if (!(weight.getText().toString().matches(""))) {
@@ -107,7 +101,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showValues() {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
         int weight_val = sharedPref.getInt("weight", 0);
         int height_val = sharedPref.getInt("height", 0);
         int age_val = sharedPref.getInt("age", 0);

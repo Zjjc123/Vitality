@@ -134,7 +134,7 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
             total++;
             SharedPreferences.Editor editor = totalCount.edit();
             editor.putInt("total", total);
-            editor.commit();
+            editor.apply();
 
             totalText.setText("Total " + Integer.toString(total));
 

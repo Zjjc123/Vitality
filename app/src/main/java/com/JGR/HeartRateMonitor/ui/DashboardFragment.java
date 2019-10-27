@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.JGR.HeartRateMonitor.BMIActivity;
 import com.JGR.HeartRateMonitor.MainActivity;
 import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
@@ -32,7 +33,7 @@ public class DashboardFragment extends Fragment {
     ListView listView;
     String mTitle[] = {
             "Pushup Counter",
-            "Test",
+            "BMI Calculator",
             "Test",
             "Test",
             "Test",
@@ -41,7 +42,7 @@ public class DashboardFragment extends Fragment {
     };
     String mDescription[] = {
             "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
-            "Test",
+            "Calculates your Body Mass Index (BMI) using the values in your profile",
             "Test",
             "Test",
             "Test",
@@ -74,6 +75,8 @@ public class DashboardFragment extends Fragment {
             if (position ==  0) {
                 //Toast.makeText(c, "Test Description", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), PushupActivity.class));
+            } else if (position == 1) {
+                startActivity(new Intent(getActivity(), BMIActivity.class));
             }
             }
         });
