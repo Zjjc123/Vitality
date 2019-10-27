@@ -213,6 +213,7 @@ public class MonitorFragment extends Fragment {
                 // If finger is just placed on --> set text to 'Scanning...'
                 if (!initialScan) {
                     statusText.setText("Scanning...");
+                    mChart.setVisibility(View.INVISIBLE);
                 }
 
                 int averageArrayAvg = 0;
@@ -328,6 +329,7 @@ public class MonitorFragment extends Fragment {
 
                     heartRateText.setText(String.valueOf(beatsAvg));
                     showTarget();
+                    mChart.setVisibility(View.VISIBLE);
                     startTime = System.currentTimeMillis();
                     beats = 0;
                 }
