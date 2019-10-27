@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.JGR.HeartRateMonitor.R;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 public class MonitorFragment extends Fragment {
 
@@ -57,6 +68,10 @@ public class MonitorFragment extends Fragment {
     private static int updateTime = 3;
     private static boolean initialScan = false;
 
+
+    private static LineChart mChart;
+    private static int chartIndex = 0;
+
     /**
      * {@inheritDoc}
      */
@@ -77,6 +92,28 @@ public class MonitorFragment extends Fragment {
         statusText = root.findViewById(R.id.statusText);
         heartImg = root.findViewById(R.id.image);
 
+        mChart = root.findViewById(R.id.chart);
+        LineData data = new LineData();
+        mChart.setData(data);
+
+        mChart.getDescription().setEnabled(false);
+
+        // enable touch gestures
+        mChart.setTouchEnabled(false);
+
+        // enable scaling and dragging
+        mChart.setDragEnabled(false);
+        mChart.setScaleEnabled(false);
+        mChart.setDrawGridBackground(false);
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart.setPinchZoom(false);
+        
+        mChart.getAxisLeft().setEnabled(false);
+        mChart.getAxisRight().setEnabled(false);
+        mChart.getXAxis().setEnabled(false);
+        mChart.getLegend().setEnabled(false);
+        mChart.setAutoScaleMinMaxEnabled(true);
         return root;
     }
 
@@ -195,6 +232,37 @@ public class MonitorFragment extends Fragment {
                     }
                 }
                 int rollingAverage = (averageArrayCnt > 0) ? (averageArrayAvg / averageArrayCnt) : 0;
+
+
+                LineData chartData = mChart.getData();
+
+                if (chartData != null) {
+
+                    ILineDataSet set = chartData.getDataSetByIndex(0);
+                    // set.addEntry(...); // can be called as well
+
+                    if (set == null) {
+                        set = createSet();
+                        chartData.addDataSet(set);
+                    }
+
+//            data.addEntry(new Entry(set.getEntryCount(), (float) (Math.random() * 80) + 10f), 0);
+                    chartData.addEntry(new Entry(set.getEntryCount(), rollingAverage), 0);
+                    chartData.notifyDataChanged();
+
+                    // let the chart know it's data has changed
+                    mChart.notifyDataSetChanged();
+
+                    // limit the number of visible entries
+                    mChart.setVisibleXRangeMaximum(150);
+                    // mChart.setVisibleYRange(30, AxisDependency.LEFT);
+
+                    // move to the latest entry
+                    mChart.moveViewToX(chartData.getEntryCount());
+
+                }
+
+
                 // If the new image is less than the rolling average --> BEAT
                 MonitorFragment.TYPE newType = currentType;
                 if (imgAvg < rollingAverage) {
@@ -350,5 +418,19 @@ public class MonitorFragment extends Fragment {
         }
 
         return result;
+    }
+
+    private static LineDataSet createSet() {
+
+        LineDataSet set = new LineDataSet(null, null);
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setLineWidth(3f);
+        set.setColor(Color.BLACK);
+        set.setHighlightEnabled(false);
+        set.setDrawValues(false);
+        set.setDrawCircles(false);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setCubicIntensity(0.2f);
+        return set;
     }
 }
