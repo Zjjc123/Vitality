@@ -40,10 +40,10 @@ public class DashboardFragment extends Fragment {
     };
     String mDescription[] = {
             "",
-            "Place your phone directly below your chest and perform pushups, your phone will count and display the number of pushups.",
             "Calculates your Body Mass Index (BMI) using the values in your profile.",
-            "",
             "What your heart rate should be in order for your exercise to achieve maximum effectiveness.",
+            "",
+            "Place your phone directly below your chest and perform pushups, your phone will count and display the number of pushups.",
             "Counts your steps as you go throughout the day.",
             "Counts the number of sit ups you do. Please hold the screen face up flat on your chest"
     };
