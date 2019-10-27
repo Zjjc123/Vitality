@@ -33,13 +33,15 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
             android:text="Push Ups"
             android:textColor="#3797CF"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/tv_steps"
+            app:layout_constraintVertical_bias="0.213" />
 
         <TextView
             android:id="@+id/tv_situps"
@@ -55,13 +57,12 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
             android:text="Sit Ups"
             android:textColor="#3797CF"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btn_update"
             app:layout_constraintTop_toTopOf="@+id/textView11" />
 
         <TextView
@@ -73,10 +74,10 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.100000024" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/et_weight"
+            app:layout_constraintTop_toBottomOf="@+id/today"
+            app:layout_constraintVertical_bias="0.095" />
 
         <TextView
             android:id="@+id/tv_steps"
@@ -210,17 +211,27 @@
             app:layout_constraintTop_toTopOf="@+id/textView9" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:background="@drawable/grad"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:scaleY="1"
+            android:selectAllOnFocus="true"
             android:text="Today's Summary"
-            android:textColor="#3797CF"
-            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:fontFamily="sans-serif-light"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintHorizontal_bias=".5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_weight"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_weight"
+            app:layout_constraintVertical_bias="0.192" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
