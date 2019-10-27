@@ -1,167 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/item_detail_container"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:paddingBottom="@dimen/activity_vertical_margin"
-android:paddingLeft="@dimen/activity_horizontal_margin"
-android:paddingRight="@dimen/activity_horizontal_margin"
-android:paddingTop="@dimen/activity_vertical_margin">
-android:background="@color/windowsBackground">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <RelativeLayout
-        android:id="@+id/rellay1"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grad"
-        android:paddingTop="50dp"
-        android:paddingBottom="70dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:background="@color/windowsBackground">
 
-        <EditText
-            android:id="@+id/et_name"
-            android:background="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Joe Bozo"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp">
-
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/rellay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
+            android:background="@drawable/grad"
+            android:paddingTop="50dp"
+            android:paddingBottom="70dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/et_name"
+                android:gravity="center"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15sp"
+                android:background="@null"
+                android:fontFamily="sans-serif-light"
+                android:hint="Enter Your Name"
+                android:textColor="#FFFFFF"
+                android:selectAllOnFocus="true"
+                android:textSize="32sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Age"
-                    android:textColor="#3797CF"
-                    android:textSize="13sp" />
+        </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/et_age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="42"
-                    android:inputType="number"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="#E5E5E5" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Height"
-                    android:textColor="#3797CF"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/et_height"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="inches"
-                    android:inputType="number"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="#E5E5E5" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Weight"
-                    android:textColor="#3797CF"
-                    android:textSize="13sp" />
-
-                <EditText
-                    android:id="@+id/et_weight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:fontFamily="sans-serif-light"
-                    android:hint="pounds"
-                    android:inputType="number"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="#E5E5E5" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            android:id="@+id/btn_update"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="update"
-            android:textAllCaps="false"
-            android:textColor="#000000"
-            android:fontFamily="sans-serif-light"
-            android:textSize="18sp"/>
-    </RelativeLayout>
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp">
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age"
+                        android:textColor="#3797CF"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/et_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_marginTop="5dp"
+                        android:hint="Enter Your Age In Years"
+                        android:selectAllOnFocus="true"
+                        android:inputType="number"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#E5E5E5" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Height"
+                        android:textColor="#3797CF"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/et_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Enter Your Height in Inches"
+                        android:selectAllOnFocus="true"
+                        android:layout_marginTop="5dp"
+                        android:inputType="number"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#E5E5E5" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight"
+                        android:textColor="#3797CF"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/et_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:fontFamily="sans-serif-light"
+                        android:layout_marginTop="5dp"
+                        android:hint="Enter Your Weight in Pounds"
+                        android:selectAllOnFocus="true"
+                        android:inputType="number"
+                        android:textColor="#000000"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="#E5E5E5" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-light"
+                android:text="update"
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

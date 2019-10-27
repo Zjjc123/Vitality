@@ -124,7 +124,7 @@ public class ProfileFragment extends Fragment {
 
     private String checkDefault(int key) {
         if (key == 0) {
-            return "Please Enter Your Value Below";
+            return "";
         } else {
             return Integer.toString(key);
         }
