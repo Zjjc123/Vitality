@@ -33,6 +33,10 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".StepsActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
