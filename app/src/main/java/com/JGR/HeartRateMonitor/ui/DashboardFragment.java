@@ -35,16 +35,18 @@ public class DashboardFragment extends Fragment {
     ListView listView;
     String mTitle[] = {
             "Pushup Counter",
-            "Target Heart Rate",
-            "BMI Calculator"
+            "BMI Calculator",
+            "Target Heart Rate"
     };
     String mDescription[] = {
             "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
-            "Calculates your Body Mass Index (BMI) using the values in your profile"
+            "Calculates your Body Mass Index (BMI) using the values in your profile",
+            "What your heart rate should be in order for your exercise to achieve maximum effectiveness"
     };
     int images[] = {
             R.drawable.miniapp_icons_01,
             R.drawable.miniapp_icons_02,
+            R.drawable.miniapp_icons_01
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
