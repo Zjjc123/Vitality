@@ -27,18 +27,24 @@ public class DashboardFragment extends Fragment {
 
     ListView listView;
     String mTitle[] = {
-            "Pushup Counter",
+            "Basics",
             "BMI Calculator",
-            "Target Heart Rate"
+            "Target Heart Rate",
+            "Counters",
+            "Pushup Counter"
     };
     String mDescription[] = {
+            "",
             "Place your phone directly below your chest and perform pushups, your phone will count and display the pushups.",
             "Calculates your Body Mass Index (BMI) using the values in your profile",
+            "",
             "What your heart rate should be in order for your exercise to achieve maximum effectiveness"
     };
     int images[] = {
+            0,
             R.drawable.ic_pushup,
             R.drawable.ic_bmi,
+            0,
             R.drawable.ic_target
     };
 
@@ -55,12 +61,11 @@ public class DashboardFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position ==  0) {
-                //Toast.makeText(c, "Test Description", Toast.LENGTH_SHORT).show();
+            if (position ==  1) {
                 startActivity(new Intent(getActivity(), PushupActivity.class));
-            } else if (position == 1) {
-                startActivity(new Intent(getActivity(), BMIActivity.class));
             } else if (position == 2) {
+                startActivity(new Intent(getActivity(), BMIActivity.class));
+            } else if (position == 4) {
                 startActivity(new Intent(getActivity(), TargetHRActivity.class));
             }
             }
@@ -84,18 +89,28 @@ public class DashboardFragment extends Fragment {
             this.rImgs = imgs;
         }
 
+        View row;
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row = layoutInflater.inflate(R.layout.category_row, parent, false);
-            ImageView images = row.findViewById(R.id.image);
-            TextView myTitle = row.findViewById(R.id.textView1);
-            TextView myDescription = row.findViewById(R.id.textView2);
 
-            images.setImageResource(rImgs[position]);
-            myTitle.setText(rTitle[position]);
-            myDescription.setText(rDescription[position]);
+            if (position == 0 || position == 3){
+                row = layoutInflater.inflate(R.layout.section_header, parent, false);
+                TextView myTitle = row.findViewById(R.id.textView3);
+
+                myTitle.setText(rTitle[position]);
+            }
+            else {
+                row = layoutInflater.inflate(R.layout.category_row, parent, false);
+                ImageView images = row.findViewById(R.id.image);
+                TextView myTitle = row.findViewById(R.id.textView1);
+                TextView myDescription = row.findViewById(R.id.textView2);
+
+                images.setImageResource(rImgs[position]);
+                myTitle.setText(rTitle[position]);
+                myDescription.setText(rDescription[position]);
+            }
 
             return row;
         }
