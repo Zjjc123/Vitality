@@ -34,9 +34,13 @@ public class BMIActivity extends AppCompatActivity {
     private TextView tv_bmi;
     private TextView tv_health;
 
+    private View view;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmi);
+
+        view = this.getWindow().getDecorView();
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("BMI Calculator");
@@ -55,14 +59,19 @@ public class BMIActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         } else if (calcBMI() < 18.5) {
             tv_health.setText("Underweight");
+            view.setBackgroundColor(Color.parseColor("#03e3fc"));
         } else if (calcBMI() < 24.9) {
             tv_health.setText("Healthy");
+            view.setBackgroundColor(Color.parseColor("#1aff00"));
         } else if (calcBMI() < 29.9) {
             tv_health.setText("Overweight");
+            view.setBackgroundColor(Color.parseColor("#faab00"));
         } else if (calcBMI() < 34.9) {
             tv_health.setText("Obese");
+            view.setBackgroundColor(Color.parseColor("#fa0000"));
         } else {
             tv_health.setText("Extremely Obese");
+            view.setBackgroundColor(Color.parseColor("#c109de"));
         }
 
     }
