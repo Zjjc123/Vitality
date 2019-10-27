@@ -27,13 +27,18 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.widget.Toolbar;
 
-public class StepsActivity extends AppCompatActivity {
+public class StepsActivity extends AppCompatActivity implements SensorEventListener, StepListener{
 
     Toolbar toolbar;
 
     private TextView tv_steps;
     private int total;
     SharedPreferences totalCount;
+    private SensorManager sensorManager;
+    private StepDetector simpleStepDetector;
+    private Sensor accel;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    private int numSteps;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +53,20 @@ public class StepsActivity extends AppCompatActivity {
         tv_steps = findViewById(R.id.tv_steps);
 
 
-        totalCount = getSharedPreferences("settings", MODE_PRIVATE);
-        total = totalCount.getInt("numSteps", 0);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
 
-        if (total == 0){
+
+        totalCount = getSharedPreferences("settings", MODE_PRIVATE);
+        numSteps = totalCount.getInt("numSteps", 0);
+        sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+
+        if (numSteps == 0){
             tv_steps.setText("Walk Around");
         } else {
-            tv_steps.setText(Integer.toString(total));
+            tv_steps.setText(Integer.toString(numSteps));
         }
 
     }
@@ -82,5 +94,29 @@ public class StepsActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void step(long timeNs) {
+        numSteps++;
+        System.out.println(numSteps);
+
+        tv_steps.setText(Integer.toString(numSteps));
+
+        totalCount = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = totalCount.edit();
+        editor.putInt("numSteps", numSteps);
+        editor.apply();
+    }
 
 }
