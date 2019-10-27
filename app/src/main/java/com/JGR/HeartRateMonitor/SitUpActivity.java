@@ -1,6 +1,7 @@
 package com.JGR.HeartRateMonitor;
 
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -26,11 +27,16 @@ public class SitUpActivity extends AppCompatActivity implements SensorEventListe
 
     Toolbar toolbar;
     TextView countText;
+    TextView dailyText;
+
+    private int daily = 0;
 
     private View view;
 
     private int upColor = Color.GREEN;
     private int downColor = Color.DKGRAY;
+
+    SharedPreferences settings;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,7 @@ public class SitUpActivity extends AppCompatActivity implements SensorEventListe
         magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         countText = findViewById(R.id.countText);
+        dailyText = findViewById(R.id.total);
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("Sit Up Counter");
@@ -47,6 +54,9 @@ public class SitUpActivity extends AppCompatActivity implements SensorEventListe
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        settings = getSharedPreferences("settings",0);
+        daily = settings.getInt("sitUps", 0);
+        dailyText.setText("Daily: " + daily);
 
         view = this.getWindow().getDecorView();
         view.setBackgroundColor(downColor);
@@ -114,7 +124,16 @@ public class SitUpActivity extends AppCompatActivity implements SensorEventListe
                 }
 
                 if (up == false && initialState == true)
+                {
                     count++;
+                    daily++;
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt("sitUps", daily);
+                    editor.apply();
+
+                    dailyText.setText("Daily: " + daily);
+
+                }
 
                 countText.setText(Integer.toString(count));
 

@@ -57,7 +57,6 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
 
         tv_steps = findViewById(R.id.tv_steps);
 
-
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
