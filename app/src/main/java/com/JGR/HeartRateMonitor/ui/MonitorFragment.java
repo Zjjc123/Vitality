@@ -128,7 +128,7 @@ public class MonitorFragment extends Fragment {
         camera = Camera.open();
         camera.setDisplayOrientation(90);
 
-        preview.setVisibility(View.VISIBLE);
+        //preview.setVisibility(View.VISIBLE);
 
         startTime = System.currentTimeMillis();
     }
@@ -141,7 +141,7 @@ public class MonitorFragment extends Fragment {
         camera.release();
         camera = null;
 
-        preview.setVisibility(View.GONE);
+        //preview.setVisibility(View.GONE);
     }
 
     private static void ResetData()
