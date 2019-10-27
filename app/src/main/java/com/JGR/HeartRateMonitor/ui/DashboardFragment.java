@@ -10,25 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.JGR.HeartRateMonitor.BMIActivity;
-import com.JGR.HeartRateMonitor.MainActivity;
 import com.JGR.HeartRateMonitor.PushupActivity;
 import com.JGR.HeartRateMonitor.R;
 import com.JGR.HeartRateMonitor.TargetHRActivity;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 public class DashboardFragment extends Fragment {
 
@@ -44,9 +37,9 @@ public class DashboardFragment extends Fragment {
             "What your heart rate should be in order for your exercise to achieve maximum effectiveness"
     };
     int images[] = {
-            R.drawable.miniapp_icons_01,
-            R.drawable.miniapp_icons_02,
-            R.drawable.miniapp_icons_01
+            R.drawable.ic_pushup,
+            R.drawable.ic_bmi,
+            R.drawable.ic_target
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
