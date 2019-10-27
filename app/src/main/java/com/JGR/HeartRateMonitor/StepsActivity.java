@@ -40,7 +40,7 @@ public class StepsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_steps);
 
         toolbar = findViewById(R.id.action_bar);
-        toolbar.setTitle("Target Heart Rate");
+        toolbar.setTitle("Step Counter");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
