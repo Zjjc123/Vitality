@@ -42,8 +42,7 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
 
     private int count = 0;
 
-    private int total;
-    SharedPreferences totalCount;
+    private int daily;
 
     private boolean downState = false;
 
@@ -74,10 +73,10 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
-        total = totalCount.getInt("pushUps", total);
+        daily = settings.getInt("pushUps", 0);
 
         counter.setText(Integer.toString(count));
-        totalText.setText("Daily: " + Integer.toString(total));
+        totalText.setText("Daily: " + daily);
 
     }
 
@@ -131,12 +130,12 @@ public class PushupActivity extends AppCompatActivity implements SensorEventList
             count++;
             counter.setText(Integer.toString(count));
 
-            total++;
-            SharedPreferences.Editor editor = totalCount.edit();
-            editor.putInt("pushUps", total);
+            daily++;
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("pushUps", daily);
             editor.apply();
 
-            totalText.setText("Total " + Integer.toString(total));
+            totalText.setText("Total " + daily);
 
         }
     }
