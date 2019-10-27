@@ -29,6 +29,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -83,42 +86,67 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
         Calendar cal = Calendar.getInstance();
-        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
-        long milliTime = settings.getLong("time", 0);
-        Date oldDate = new Date(milliTime);
 
-        if (oldDate.getYear() != cal.getTime().getYear() || oldDate.getMonth() != cal.getTime().getMonth() || oldDate.getDay() != cal.getTime().getDay())
+        // Find new time
+        int newYear = cal.get(Calendar.YEAR);
+        int newMonth = cal.get(Calendar.MONTH) + 1;
+        int newDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        System.out.println(newYear);
+        System.out.println(newMonth);
+        System.out.println(newDay);
+
+        // Find old time
+
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+
+        long milliTime = settings.getLong("time", 0);
+        cal.setTimeInMillis(milliTime);
+
+        int oldYear = cal.get(Calendar.YEAR);
+        int oldMonth = cal.get(Calendar.MONTH) + 1;
+        int oldDay = cal.get(Calendar.DAY_OF_MONTH);
+
+
+        System.out.println(oldYear);
+        System.out.println(oldMonth);
+        System.out.println(oldDay);
+
+
+        if (newYear != oldYear ||
+                newMonth != oldMonth ||
+                newDay != oldDay)
         {
             resetData();
         }
-
 
     }
 
     public void resetData()
     {
-        System.out.println("Reset Data!");
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
 
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("numSteps", 0);
         editor.putInt("pushUps", 0);
         editor.apply();
-
     }
 
     @Override
-    public void onDestroy ()
+    public void onStop ()
     {
-        super.onDestroy();
-
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
 
         Calendar calendar = Calendar.getInstance();
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong("time", calendar.getTimeInMillis());
 
+        System.out.println(calendar.getTimeInMillis());
+
         editor.apply();
+
+        super.onStop();
+
     }
     /**
      * {@inheritDoc}
