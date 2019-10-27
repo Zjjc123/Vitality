@@ -38,6 +38,10 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".SettingsActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".SitUpActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">

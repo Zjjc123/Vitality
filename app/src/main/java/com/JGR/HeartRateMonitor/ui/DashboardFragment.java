@@ -111,7 +111,7 @@ public class DashboardFragment extends Fragment {
 
             if (position == 0 || position == 3){
                 row = layoutInflater.inflate(R.layout.section_header, parent, false);
-                TextView myTitle = row.findViewById(R.id.textView3);
+                TextView myTitle = row.findViewById(R.id.section_header);
 
                 myTitle.setText(rTitle[position]);
             }

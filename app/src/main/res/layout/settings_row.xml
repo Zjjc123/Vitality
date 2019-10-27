@@ -8,7 +8,7 @@
     >
 
     <TextView
-        android:id="@+id/section_header"
+        android:id="@+id/settings_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
@@ -23,5 +23,12 @@
         android:focusableInTouchMode="false"
         android:linksClickable="false"
         android:longClickable="false"/>
+
+    <Switch
+        android:id="@+id/settings_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Switch" />
 
 </LinearLayout>
