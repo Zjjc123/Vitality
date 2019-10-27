@@ -19,6 +19,20 @@ import com.JGR.HeartRateMonitor.R;
 
 public class ProfileFragment extends Fragment {
 
+    private EditText weight;
+    private EditText height;
+    private EditText age;
+    private EditText name;
+
+    SharedPreferences sharedPref;
+
+    private TextView tv_result;
+    private TextView disp_weight;
+    private TextView disp_height;
+    private TextView disp_age;
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -35,107 +49,17 @@ public class ProfileFragment extends Fragment {
 
         showValues();
 
-//        Button bt_calculate = root.findViewById(R.id.bt_calculate);
-//
-//        tv_result = root.findViewById(R.id.tv_result);
-//
-//        bt_calculate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                storeValues();
-//            }
-//        });
+        Button bt_update = root.findViewById(R.id.btn_update);
 
-        weight.addTextChangedListener(new TextWatcher() {
-
+        bt_update.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void onClick(View view) {
                 storeValues();
             }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-
-            }
         });
-
-        height.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                storeValues();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-
-            }
-        });
-
-        age.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                storeValues();
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-
-            }
-        });
-
-        name.addTextChangedListener(new TextWatcher() {
-
-            // the user's changes are saved here
-            public void onTextChanged(CharSequence c, int start, int before, int count) {
-                storeValues();
-            }
-
-            public void beforeTextChanged(CharSequence c, int start, int count, int after) {
-                // this space intentionally left blank
-            }
-
-            public void afterTextChanged(Editable c) {
-                // this one too
-            }
-        });
-
 
         return root;
     }
-
-
-    private EditText weight;
-    private EditText height;
-    private EditText age;
-    private EditText name;
-
-    SharedPreferences sharedPref;
-
-    private TextView tv_result;
-    private TextView disp_weight;
-    private TextView disp_height;
-    private TextView disp_age;
-
 
     private void storeValues() {
 
@@ -170,8 +94,6 @@ public class ProfileFragment extends Fragment {
 //        double hrMax = 207-(0.7*user_age);
         // Do your calculation here.
         // I'm assuming you have inserted the result on a variable called 'result'. Like: double result
-
-        tv_result.setText("Values Stored");
 
         showValues();
 

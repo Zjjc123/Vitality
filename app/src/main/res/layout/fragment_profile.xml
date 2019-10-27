@@ -35,7 +35,9 @@ android:background="@color/windowsBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -143,6 +145,23 @@ android:background="@color/windowsBackground">
 
         </LinearLayout>
 
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="update"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:fontFamily="sans-serif-light"
+            android:textSize="18sp"/>
     </RelativeLayout>
 
 </LinearLayout>
