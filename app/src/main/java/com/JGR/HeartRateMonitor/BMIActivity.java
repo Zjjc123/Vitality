@@ -36,12 +36,15 @@ public class BMIActivity extends AppCompatActivity {
     private TextView tv_profile;
 
     private View view;
+    private int bgColor = Color.DKGRAY;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bmi);
 
         view = this.getWindow().getDecorView();
+        view.setBackgroundColor(bgColor);
 
         toolbar = findViewById(R.id.action_bar);
         toolbar.setTitle("BMI Calculator");
@@ -56,7 +59,7 @@ public class BMIActivity extends AppCompatActivity {
 
         if (calcBMI() == 0) {
             tv_bmi.setText("Please Set Profile");
-            tv_bmi.setTextColor(Color.parseColor("#000000"));
+            tv_bmi.setTextColor(Color.parseColor("#ffffff"));
             tv_bmi.setTextSize(40);
             tv_health.setText("");
             Toast.makeText(this, "Enter Your personal information in the profile tab",

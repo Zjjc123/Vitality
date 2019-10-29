@@ -33,6 +33,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Push Ups"
             android:textColor="#3797CF"
             android:textSize="18sp"
@@ -69,6 +70,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="Steps"
             android:textColor="#3797CF"
             android:textSize="18sp"
@@ -107,6 +109,7 @@
             android:scaleY="1"
             android:selectAllOnFocus="true"
             android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF"
             android:textSize="32sp"
             app:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,10 +155,10 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.205"
+            app:layout_constraintHorizontal_bias="0.171"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_name"
-            app:layout_constraintVertical_bias="0.103" />
+            app:layout_constraintVertical_bias="0.102" />
 
         <EditText
             android:id="@+id/et_height"
@@ -214,6 +217,7 @@
             android:id="@+id/today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@drawable/grad"
             android:gravity="center"
             android:paddingLeft="5dp"
@@ -231,7 +235,7 @@
             app:layout_constraintHorizontal_bias=".5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_weight"
-            app:layout_constraintVertical_bias="0.192" />
+            app:layout_constraintVertical_bias="0.207" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

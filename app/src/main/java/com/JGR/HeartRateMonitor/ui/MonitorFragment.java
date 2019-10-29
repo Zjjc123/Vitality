@@ -461,6 +461,8 @@ public class MonitorFragment extends Fragment {
                 bpmText.setTextColor(Color.parseColor("#d94c4c"));
             }
             statusText.setText("Target Heart Rate During Exercise:\n" + hr_low + " - " + hr_high);
+            statusText.setTextSize(20);
+
         } else if(!(age_val == 0)){
             hr_low = (220 - age_val - 50);
             hr_high = (220 - age_val - 20);
@@ -472,8 +474,10 @@ public class MonitorFragment extends Fragment {
                 bpmText.setTextColor(Color.parseColor("#d94c4c"));
             }
             statusText.setText("Target Heart Rate During Exercise:\n" + hr_low + " - " + hr_high);
+            statusText.setTextSize(20);
         } else {
             statusText.setText("Scanning...");
+            statusText.setTextSize(40);
         }
 
     }

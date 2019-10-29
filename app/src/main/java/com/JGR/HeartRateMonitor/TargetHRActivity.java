@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,7 +24,6 @@ public class TargetHRActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_targethr);
 
-
         view = this.getWindow().getDecorView();
         view.setBackgroundColor(bgColor);
 
@@ -38,6 +38,8 @@ public class TargetHRActivity extends AppCompatActivity {
 
         if (HR == null){
             tv_target.setText("Please Set Profile");
+            Toast.makeText(this, "Enter Your personal information in the profile tab",
+                    Toast.LENGTH_SHORT).show();
         } else {
             tv_target.setText(HR[0] + " - " + HR[1] + " BPM");
         }

@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/action_bar"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias=".5" />
 
     <TextView
         android:id="@+id/tv_health"

@@ -69,8 +69,10 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
 
         if (numSteps == 0){
             tv_steps.setText("Walk Around");
+            tv_steps.setTextSize(40);
         } else {
             tv_steps.setText(Integer.toString(numSteps));
+            tv_steps.setTextSize(150);
         }
 
     }
@@ -121,6 +123,7 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("numSteps", numSteps);
         editor.apply();
+        tv_steps.setTextSize(150);
     }
 
 }
