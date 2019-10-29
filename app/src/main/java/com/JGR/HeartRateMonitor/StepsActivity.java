@@ -2,7 +2,10 @@ package com.JGR.HeartRateMonitor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -14,6 +17,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,13 +25,15 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.widget.Toolbar;
 
-public class StepsActivity extends AppCompatActivity implements SensorEventListener, StepListener{
+public class StepsActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
     Toolbar toolbar;
 
@@ -41,6 +47,8 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
     private int bgColor = Color.DKGRAY;
+
+    SharedPreferences sharedPref;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +75,7 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
         numSteps = settings.getInt("numSteps", 0);
         sensorManager.registerListener(this, accel, SensorManager.SENSOR_DELAY_FASTEST);
 
-        if (numSteps == 0){
+        if (numSteps == 0) {
             tv_steps.setText("Walk Around");
             tv_steps.setTextSize(40);
         } else {
@@ -78,8 +86,8 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId()==android.R.id.home){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -91,12 +99,12 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
     }
 
@@ -124,6 +132,7 @@ public class StepsActivity extends AppCompatActivity implements SensorEventListe
         editor.putInt("numSteps", numSteps);
         editor.apply();
         tv_steps.setTextSize(150);
+
     }
 
 }

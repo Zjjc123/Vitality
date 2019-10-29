@@ -2,6 +2,7 @@ package com.JGR.HeartRateMonitor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -34,6 +38,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener {
 
@@ -164,7 +169,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
 
         wakeLock.acquire();
-
     }
 
     /**
@@ -198,6 +202,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences.Editor editor = totalCount.edit();
         editor.putInt("numSteps", numSteps);
         editor.apply();
+
+        final SharedPreferences sharedPref = getSharedPreferences("notifications", Context.MODE_PRIVATE);
+        if (sharedPref.getBoolean("stepsSwitch", false))
+            displayStepsNotif();
     }
 
     @Override
@@ -216,5 +224,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    NotificationManagerCompat notificationManagerCompat;
+    NotificationCompat.Builder builder;
+    private void displayStepsNotif(){
+        SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        int numSteps = settings.getInt("numSteps", 0);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder = new NotificationCompat.Builder(this, "stepsNotif");
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle(numSteps+" steps");
+        builder.setOngoing(true);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setContentIntent(resultPendingIntent);
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(001,builder.build());
     }
 }
