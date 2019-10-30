@@ -125,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             resetData();
         }
 
+        final SharedPreferences sharedPref = getSharedPreferences("notifications", Context.MODE_PRIVATE);
+        if (sharedPref.getBoolean("stepsSwitch", false))
+            displayStepsNotif();
+
     }
 
     public void resetData()
@@ -153,6 +157,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onStop();
 
     }
+
+    @Override
+    public void onDestroy(){
+        clearStepsNotif();
+        super.onDestroy();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -245,5 +256,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         notificationManagerCompat = NotificationManagerCompat.from(this);
         notificationManagerCompat.notify(001,builder.build());
+    }
+    private void clearStepsNotif(){
+        builder.setOngoing(false);
+        notificationManagerCompat.cancel(001);
     }
 }

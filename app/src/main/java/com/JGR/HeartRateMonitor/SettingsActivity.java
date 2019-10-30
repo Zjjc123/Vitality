@@ -81,32 +81,33 @@ public class SettingsActivity extends AppCompatActivity {
             TextView myTitle = row.findViewById(R.id.settings_header);
             myTitle.setText(rTitle[position]);
 
-            final SharedPreferences sharedPref = getSharedPreferences("notifications", Context.MODE_PRIVATE);
-            stepsSwitch = row.findViewById(R.id.settings_switch);
-            stepsSwitch.setChecked(sharedPref.getBoolean("stepsSwitch", false));
-            if (stepsSwitch.isChecked())
-                displayStepsNotif();
+            if (position == 0) {
+                final SharedPreferences sharedPref = getSharedPreferences("notifications", Context.MODE_PRIVATE);
+                stepsSwitch = row.findViewById(R.id.settings_switch);
+                stepsSwitch.setChecked(sharedPref.getBoolean("stepsSwitch", false));
+                if (stepsSwitch.isChecked())
+                    displayStepsNotif();
 
-            final SharedPreferences.Editor editor = sharedPref.edit();
-            stepsSwitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (stepsSwitch.isChecked()){
-                        stepsSwitch.setChecked(false);
-                        editor.putBoolean("stepsSwitch", false);
-                        clearStepsNotif();
-                        System.out.println(false);
-                    }
-                    else{
-                        stepsSwitch.setChecked(true);
-                        editor.putBoolean("stepsSwitch", true);
-                        displayStepsNotif();
-                        System.out.println(true);
+                final SharedPreferences.Editor editor = sharedPref.edit();
+                stepsSwitch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (stepsSwitch.isChecked()) {
+                            stepsSwitch.setChecked(false);
+                            editor.putBoolean("stepsSwitch", false);
+                            clearStepsNotif();
+                            System.out.println(false);
+                        } else {
+                            stepsSwitch.setChecked(true);
+                            editor.putBoolean("stepsSwitch", true);
+                            displayStepsNotif();
+                            System.out.println(true);
 
+                        }
+                        editor.apply();
                     }
-                    editor.apply();
-                }
-            });
+                });
+            }
 
             return row;
         }
