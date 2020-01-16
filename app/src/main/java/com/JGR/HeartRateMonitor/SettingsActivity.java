@@ -7,15 +7,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -51,6 +54,8 @@ public class SettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        createNotificationChannel();
 
     }
 
@@ -89,16 +94,23 @@ public class SettingsActivity extends AppCompatActivity {
                     displayStepsNotif();
 
                 final SharedPreferences.Editor editor = sharedPref.edit();
-                stepsSwitch.setOnClickListener(new View.OnClickListener() {
+
+                stepsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View view) {
-                        if (stepsSwitch.isChecked()) {
-                            stepsSwitch.setChecked(false);
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (stepsSwitch.getTag() != null) {
+                            stepsSwitch.setTag(null);
+                            return;
+                        }
+
+                        System.out.println("stepSwitch.isChecked(): " + stepsSwitch.isChecked());
+                        if (!stepsSwitch.isChecked()) {
+                            //stepsSwitch.setChecked(false);
                             editor.putBoolean("stepsSwitch", false);
                             clearStepsNotif();
                             System.out.println(false);
                         } else {
-                            stepsSwitch.setChecked(true);
+                            //stepsSwitch.setChecked(true);
                             editor.putBoolean("stepsSwitch", true);
                             displayStepsNotif();
                             System.out.println(true);
@@ -116,6 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
     NotificationManagerCompat notificationManagerCompat;
     NotificationCompat.Builder builder;
     private void displayStepsNotif(){
+        System.out.println("displayStepsNotif");
         SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
         int numSteps = settings.getInt("numSteps", 0);
 
@@ -133,7 +146,27 @@ public class SettingsActivity extends AppCompatActivity {
         notificationManagerCompat.notify(001,builder.build());
     }
     private void clearStepsNotif(){
-        builder.setOngoing(false);
-        notificationManagerCompat.cancel(001);
+        System.out.println("clearStepsNotif");
+        if (builder != null && notificationManagerCompat != null) {
+            builder.setOngoing(false);
+
+            notificationManagerCompat.cancel(001);
+        }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "test";
+            String description = "test";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("stepsNotif", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
